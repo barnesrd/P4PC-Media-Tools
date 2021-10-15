@@ -1,0 +1,843 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css/stylesheet_top8winners.css" type="text/css" charset="utf-8">
+	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/countries.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			
+			var timestampOld;
+			var timestamp;
+
+			var wr1p1;
+			var wr1p2;
+			var wr1p1s;
+			var wr1p2s;
+
+			var wr2p1;
+			var wr2p2;
+			var wr2p1s;
+			var wr2p2s;
+
+			var wr3p1;
+			var wr3p2;
+			var wr3p1s;
+			var wr3p2s;
+
+			var wfin;
+			var tourn;
+			
+			var xmlDoc;
+		
+			var xhr = new XMLHttpRequest();
+		
+			var animating = false;
+			var doUpdate = false;
+			
+			function init() {
+
+				xhr.overrideMimeType('text/xml');
+				
+				var timeout = this.window.setInterval(function() {
+					pollHandler();
+				}, 100);
+			
+				$('#wr1p1').html('');
+				$('#wr1p2').html('');
+				$('#wr1p1s').html('');
+				$('#wr1p2s').html('');
+
+				$('#wr2p1').html('');
+				$('#wr2p2').html('');
+				$('#wr2p1s').html('');
+				$('#wr2p2s').html('');
+
+				$('#wr3p1').html('');
+				$('#wr3p2').html('');
+				$('#wr3p1s').html('');
+				$('#wr3p2s').html('');
+
+				$('#wfin').html('');
+
+				$('#tourn').html('');
+
+				$('#wfintitle').html("Winners Finalist");
+				$('#wfintitle').tween({
+					left:{
+						start: 1100,
+						stop: 1050,
+						time: 0,
+						duration: 0.5,
+						effect: 'easeOut'
+					},
+					opacity: {
+						start: 0,
+						stop: 100,
+						time: 0,
+						duration: 0.5,
+						effect: 'easeOut'
+					}
+				});
+
+				$('#board').tween({
+				   opacity: {
+					  start: 0,
+					  stop: 100,
+					  time: 0,
+					  duration: 0.5,
+					  effect: 'easeOut'
+					}
+				});
+				
+				
+				$.play();
+			}
+			
+			function pollHandler()
+			{
+			  loadData();
+			  if (timestamp != timestampOld) {
+				  doUpdate = true;
+			  }
+			  if (!animating && doUpdate) {
+				  updateBoard();
+			  }
+			}
+			
+			function loadData() {
+				xhr.open('GET', 'winnerscontrol.xml');
+				xhr.send();
+				xhr.onreadystatechange = function(){
+						xmlDoc = xhr.responseXML;
+						
+						wr1p1 = getValueFromTag(xmlDoc,'wr1p1');
+						wr1p2 = getValueFromTag(xmlDoc,'wr1p2');
+						wr1p1s = getValueFromTag(xmlDoc,'wr1p1s');
+						wr1p2s = getValueFromTag(xmlDoc,'wr1p2s');
+
+						wr2p1 = getValueFromTag(xmlDoc,'wr2p1');
+						wr2p2 = getValueFromTag(xmlDoc,'wr2p2');
+						wr2p1s = getValueFromTag(xmlDoc,'wr2p1s');
+						wr2p2s = getValueFromTag(xmlDoc,'wr2p2s');
+
+						wr3p1 = getValueFromTag(xmlDoc,'wr3p1');
+						wr3p2 = getValueFromTag(xmlDoc,'wr3p2');
+						wr3p1s = getValueFromTag(xmlDoc,'wr3p1s');
+						wr3p2s = getValueFromTag(xmlDoc,'wr3p2s');
+
+						wfin = getValueFromTag(xmlDoc,'wfin');
+						tourn = getValueFromTag(xmlDoc,'tourn');
+						
+						timestampOld = timestamp;
+						timestamp = getValueFromTag(xmlDoc,'timestamp');
+						
+				}
+			}
+			
+			function updateBoard() {
+				// ROUND ONE
+				if ($('#wr1p1').html() != wr1p1) {
+					animating = true;
+					$('#wr1p1').tween({
+						left:{
+						  start: 50,
+						  stop: 100,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr1p1').html(wr1p1);
+						}
+					});
+					
+					$('#wr1p1').tween({
+						left:{
+						  start: 100,
+						  stop: 50,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#wr1p2').html() != wr1p2) {
+					animating = true;
+					$('#wr1p2').tween({
+						left:{
+						  start: 50,
+						  stop: 100,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr1p2').html(wr1p2);
+						}
+					});
+					
+					$('#wr1p2').tween({
+						left:{
+						  start: 100,
+						  stop: 50,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#wr1p1s').html() != wr1p1s) {
+					animating = true;
+					$('#wr1p1s').tween({
+						left:{
+						  start: 435,
+						  stop: 435,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr1p1s').html(wr1p1s);
+						}
+					});
+					
+					$('#wr1p1s').tween({
+						left:{
+						  start: 435,
+						  stop: 435,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#wr1p2s').html() != wr1p1s) {
+					animating = true;
+					$('#wr1p2s').tween({
+						left:{
+						  start: 435,
+						  stop: 435,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr1p2s').html(wr1p2s);
+						}
+					});
+					
+					$('#wr1p2s').tween({
+						left:{
+						  start: 435,
+						  stop: 435,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				// ROUND TWO
+				if ($('#wr2p1').html() != wr2p1) {
+					animating = true;
+					$('#wr2p1').tween({
+						left:{
+						  start: 50,
+						  stop: 100,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr2p1').html(wr2p1);
+						}
+					});
+					
+					$('#wr2p1').tween({
+						left:{
+						  start: 100,
+						  stop: 50,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#wr2p2').html() != wr2p2) {
+					animating = true;
+					$('#wr2p2').tween({
+						left:{
+						  start: 50,
+						  stop: 100,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr2p2').html(wr2p2);
+						}
+					});
+					
+					$('#wr2p2').tween({
+						left:{
+						  start: 100,
+						  stop: 50,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#wr2p1s').html() != wr2p1s) {
+					animating = true;
+					$('#wr2p1s').tween({
+						left:{
+						  start: 435,
+						  stop: 435,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr2p1s').html(wr2p1s);
+						}
+					});
+					
+					$('#wr2p1s').tween({
+						left:{
+						  start: 435,
+						  stop: 435,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#wr2p2s').html() != wr2p2s) {
+					animating = true;
+					$('#wr2p2s').tween({
+						left:{
+						  start: 435,
+						  stop: 435,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr2p2s').html(wr2p2s);
+						}
+					});
+					
+					$('#wr2p2s').tween({
+						left:{
+						  start: 435,
+						  stop: 435,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				// ROUND THREE
+				if ($('#wr3p1').html() != wr3p1) {
+					animating = true;
+					$('#wr3p1').tween({
+						left:{
+						  start: 505,
+						  stop: 610,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr3p1').html(wr3p1);
+						}
+					});
+					
+					$('#wr3p1').tween({
+						left:{
+						  start: 610,
+						  stop: 505,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#wr3p2').html() != wr3p2) {
+					animating = true;
+					$('#wr3p2').tween({
+						left:{
+						  start: 505,
+						  stop: 610,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr3p2').html(wr3p2);
+						}
+					});
+					
+					$('#wr3p2').tween({
+						left:{
+						  start: 610,
+						  stop: 505,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#wr3p1s').html() != wr3p1s) {
+					animating = true;
+					$('#wr3p1s').tween({
+						left:{
+						  start: 895,
+						  stop: 895,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr3p1s').html(wr3p1s);
+						}
+					});
+					
+					$('#wr3p1s').tween({
+						left:{
+						  start: 895,
+						  stop: 895,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#wr3p2s').html() != wr3p2s) {
+					animating = true;
+					$('#wr3p2s').tween({
+						left:{
+						  start: 895,
+						  stop: 895,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wr3p2s').html(wr3p2s);
+						}
+					});
+					
+					$('#wr3p2s').tween({
+						left:{
+						  start: 895,
+						  stop: 895,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				// FINALIST
+				if ($('#wfin').html() != wfin) {
+					animating = true;
+					$('#wfin').tween({
+						left:{
+						  start: 965,
+						  stop: 1065,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wfin').html(wfin);
+						}
+					});
+					
+					$('#wfin').tween({
+						left:{
+						  start: 1065,
+						  stop: 965,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				// TOURNEY NAME
+				
+				if ($('#tourn').html() != tourn) {
+					animating = true;
+					$('#tourn').tween({
+						left:{
+						  start: 1000,
+						  stop: 900,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#tourn').html(tourn);
+						}
+					});
+					
+					$('#tourn').tween({
+						left:{
+						  start: 900,
+						  stop: 1000,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+
+				$.play();
+				
+				doUpdate = false;
+			}
+			
+			function getValueFromTag (xmlDoc,tag) {
+				if (xmlDoc.getElementsByTagName(tag).length != 0 ) {
+					if (xmlDoc.getElementsByTagName(tag)[0].childNodes.length == 0) {
+							return '';
+						} else {
+							return xmlDoc.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
+					}
+				} else {
+					return '';
+				}
+			}
+			
+			function getCountry (country) {
+			
+			var count = iso.findCountryByName(country);
+			if (!count)
+			count = iso.findCountryByCode(country);
+			if (!count) {
+			var count = new Array();
+			count['value'] = "unknown";
+			}
+			
+			return count['value'];
+		}
+	</script>
+</head>
+<body onLoad="init()">
+	<div id="board">
+		<div id="wr1p1">P1</div>
+		<div id="wr1p2">P2</div>
+		<div id="wr1p1s">1</div>
+		<div id="wr1p2s">2</div>
+
+		<div id="wr2p1">P3</div>
+		<div id="wr2p2">P4</div>
+		<div id="wr2p1s">3</div>
+		<div id="wr2p2s">4</div>
+
+		<div id="wr3p1">P5</div>
+		<div id="wr3p2">P6</div>
+		<div id="wr3p1s">5</div>
+		<div id="wr3p2s">6</div>
+
+		<div id="wfin">Finalist</div>
+		<div id="wfintitle"></div>
+
+		<div id="tourn"></div>
+	</div>
+</body>
+</html>

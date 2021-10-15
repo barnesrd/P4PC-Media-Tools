@@ -1,0 +1,557 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css/stylesheet_comms.css" type="text/css" charset="utf-8">
+	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/countries.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			
+			var timestampOld;
+			var timestamp;
+
+			var c1name;
+			var c1plug;
+			var oldc1nav = "";
+			var c1nav;
+
+			var c2name;
+			var c2plug;
+			var oldc2nav = "";
+			var c2nav;
+			
+			var xmlDoc;
+		
+			var xhr = new XMLHttpRequest();
+		
+			var animating = false;
+			var doUpdate = false;
+
+			function init() {
+
+				xhr.overrideMimeType('text/xml');
+
+				$('#c1name').html('');
+				$('#c1plug').html('');
+				$('#c1nav').opacity(100);
+				$('#c1navbg').opacity(0);
+				$('#c1navef').opacity(0);
+
+				$('#c2name').html('');
+				$('#c2plug').html('');
+				$('#c2nav').opacity(0);
+				$('#c2navbg').opacity(0);
+				$('#c2navef').opacity(0);
+
+				$('#bg').opacity(0);
+				$('#board').opacity(100);
+
+				var timeout = this.window.setInterval(function() {
+					pollHandler();
+				}, 100);
+
+				$.play();
+
+				window.onerror = function(msg, url, linenumber) {
+					alert(msg+' Line Number: '+linenumber);
+					window.stop();
+					return true;
+				}
+			}
+			
+			function pollHandler()
+			{
+			  
+			  loadData();
+			  if (timestamp != timestampOld) {
+				  doUpdate = true;
+			  }
+			  if (!animating && doUpdate) {
+				  updateBoard();
+			  }
+			}
+			
+			function loadData() {
+				xhr.open('GET', 'commcontrol.xml');
+				xhr.send();
+				xhr.onreadystatechange = function(){
+						xmlDoc = xhr.responseXML;
+						try{
+						c1name = getValueFromTag(xmlDoc,'c1name');
+						c1plug = getValueFromTag(xmlDoc,'c1plug');
+						c1nav = getValueFromTag(xmlDoc,'c1nav');
+
+						c2name = getValueFromTag(xmlDoc,'c2name');
+						c2plug = getValueFromTag(xmlDoc,'c2plug');
+						c2nav = getValueFromTag(xmlDoc,'c2nav');
+
+						timestampOld = timestamp;
+						timestamp = getValueFromTag(xmlDoc,'timestamp');
+						}
+						catch(err){}
+						
+				}
+			}
+			
+			function updateBoard() {
+
+				if ($('#c1name').html() != c1name) {
+					animating = true;
+					$('#c1name').tween({
+						left:{
+						  start: 250,
+						  stop: 450,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c1name').html(c1name);
+						}
+					});
+					$('#c1name').tween({
+						left:{
+						  start: 450,
+						  stop: 250,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+				}
+				
+				if ($('#c2name').html() != c2name) {
+					animating = true;
+					$('#c2name').tween({
+						left:{
+						  start: 1370,
+						  stop: 1170,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c2name').html(c2name);
+						}
+					});
+					$('#c2name').tween({
+						left:{
+						  start: 1170,
+						  stop: 1370,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+				}
+
+				if ($('#c1plug').html() != c1plug){
+					animating=true;
+					$('#c1plug').tween({
+						left:{
+						  start: 280,
+						  stop: 480,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c1plug').html(c1plug);
+						}
+					});
+					$('#c1plug').tween({
+						left:{
+						  start: 480,
+						  stop: 280,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating=false;
+						}
+					});
+				}
+				
+				if ($('#c2plug').html() != c2plug){
+					animating=true;
+					$('#c2plug').tween({
+						left:{
+						  start: 1340,
+						  stop: 1140,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c2plug').html(c2plug);
+						}
+					});
+					$('#c2plug').tween({
+						left:{
+						  start: 1140,
+						  stop: 1340,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating=false;
+						}
+					});
+				}
+				
+				if (oldc1nav != c1nav || $('#c1nav').opacity() == 0){
+					animating=true;
+					$('#c1nav').tween({
+						left:{
+							start: 0,
+							stop: 100,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						opacity: {
+							start: 100,
+							stop: 0,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c1nav').html('<img src="images/navs/'+ c1nav +'.png">');
+							oldc1nav = c1nav;
+						}
+					});
+					$('#c1navbg').tween({
+						left:{
+							start: 10,
+							stop: 70,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						opacity: {
+							start: 100,
+							stop: 0,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c1navbg').html('<img src="images/navs/'+ c1nav +'BG.png">');
+						}
+					});
+					$('#c1navef').tween({
+						left:{
+							start: 30,
+							stop: 50,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						opacity: {
+							start: 100,
+							stop: 0,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c1navef').html('<img src="images/navs/'+ c1nav +'EF.png">');
+						}
+					});
+					$('#c1navef').tween({
+						left:{
+							start: 150,
+							stop: 30,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						opacity: {
+							start: 0,
+							stop: 100,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						onStop: function(){
+						}
+					});
+					$('#c1navbg').tween({
+						left:{
+							start: 130,
+							stop: 10,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						opacity: {
+							start: 0,
+							stop: 100,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						onStop: function(){
+						}
+					});
+					$('#c1nav').tween({
+						left:{
+							start: 100,
+							stop: 0,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						opacity: {
+							start: 0,
+							stop: 100,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						onStop: function(){
+							animating=false;
+						}
+					});
+					
+				}
+				
+				if (oldc2nav != c2nav || $('#c2nav').opacity() == 0){
+					animating=true;
+					$('#c2nav').tween({
+						left:{
+							start: 1664,
+							stop: 1534,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						opacity: {
+							start: 100,
+							stop: 0,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c2nav').html('<img src="images/navs/'+ c2nav +'.png">');
+							oldc2nav = c2nav;
+						}
+					});
+					$('#c2navbg').tween({
+						left:{
+							start: 1664,
+							stop: 1564,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						opacity: {
+							start: 100,
+							stop: 0,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c2navbg').html('<img src="images/navs/'+ c2nav +'BG.png">');
+						}
+					});
+					$('#c2navef').tween({
+						left:{
+							start: 1644,
+							stop: 1594,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						opacity: {
+							start: 100,
+							stop: 0,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#c2navef').html('<img src="images/navs/'+ c2nav +'EF.png">');
+						}
+					});
+					$('#c2navef').tween({
+						left:{
+							start: 1454,
+							stop: 1644,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						opacity: {
+							start: 0,
+							stop: 100,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						onStop: function(){
+						}
+					});
+					$('#c2navbg').tween({
+						left:{
+							start: 1534,
+							stop: 1664,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						opacity: {
+							start: 0,
+							stop: 100,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						onStop: function(){
+						}
+					});
+					$('#c2nav').tween({
+						left:{
+							start: 1564,
+							stop: 1664,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						opacity: {
+							start: 0,
+							stop: 100,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						onStop: function(){
+							animating=false;
+						}
+					});
+					
+				}
+
+				$.play();
+				
+				doUpdate = false;
+			}
+			
+			function getValueFromTag (xmlDoc,tag) {
+				if (xmlDoc.getElementsByTagName(tag).length != 0 ) {
+					if (xmlDoc.getElementsByTagName(tag)[0].childNodes.length == 0) {
+							return '';
+						} else {
+							return xmlDoc.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
+					}
+				} else {
+					return '';
+				}
+			}
+			
+			function getCountry (country) {
+			
+			var count = iso.findCountryByName(country);
+			if (!count)
+			count = iso.findCountryByCode(country);
+			if (!count) {
+			var count = new Array();
+			count['value'] = "unknown";
+			}
+			
+			return count['value'];
+		}
+	</script>
+</head>
+<body onLoad="init()">
+	<div id="board">
+		<div id="bg"></div>
+
+		<div id="c1name"></div>
+		<div id="c1plug"></div>
+		<div id="c1nav"></div>
+		<div id="c1navbg"></div>
+		<div id="c1navef"></div>
+
+		<div id="c2name"></div>
+		<div id="c2plug"></div>
+		<div id="c2nav"></div>
+		<div id="c2navbg"></div>
+		<div id="c2navef"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,165 @@
+@font-face {
+	font-family: 'p4pc';
+	src:url('fonts/LeagueGothic-Regular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'p4pcscore';
+	src:url('fonts/earthsmightiestexpand.ttf') format('truetype');
+}
+
+
+body {
+	margin:0px;
+	background-color: rgba(0, 0, 0, 0);
+	font-family:  p4pc;
+	color:#FFFFFF;/*#FFFFFF*/
+}
+
+#bg {
+    position:absolute;
+	top:0px;
+	left:0px;
+	width:1920px;
+	height:1080px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image:url('../images/.png');
+}
+
+#board {
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:1920px;
+	height:1080px;
+	/*background-repeat: no-repeat;
+	background-size: cover;
+	background-image:url('../images/BG4.png');*/
+}
+
+#title {
+    position:absolute;
+	left:810px;
+	top:38px;
+	width:300px;
+    overflow: visible;
+    z-index: 100;
+    text-align: center;
+	letter-spacing: 1px;
+    color: rgb(255, 212, 0);
+	font-size:55px;
+		text-transform: uppercase;
+	text-shadow: 
+	    7px 7px #000,
+		7px 7px #000;
+}
+
+#p4pc {
+    position:absolute;
+	top:780px;
+	left:810px;
+	width:369px;
+	height:300px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image:url('../images/p4pc.png');
+}
+
+#wfin {
+    position:absolute;
+	left:350px;
+	top:38px;
+	width: 620px;
+    overflow: visible;
+    z-index: 100;
+	letter-spacing: 1px;
+	font-size:90px;
+		text-transform: uppercase;
+	text-shadow: 
+	    2px 2px #000,
+		2px 2px #000;
+}
+
+#lfin {
+    position:absolute;
+	left:350px;
+	top:38px;
+    overflow: visible;
+    z-index: 1000;
+	width:620px;
+    text-align: right;
+	letter-spacing: 1px;
+	font-size:90px;
+		text-transform: uppercase;
+	text-shadow: 
+	    2px 2px #000,
+		2px 2px #000;
+}
+
+#wfintitle {
+	position:absolute;
+	left:350px;
+	top:10px;
+	width:330px;
+	z-index: 100;
+	letter-spacing: 1px;
+	font-size:30px;
+	color:rgb(255, 212, 0);
+		text-transform: uppercase;
+	text-shadow: 
+	    3px 3px #000,
+		3px 3px #000;
+}
+
+#wfinboard {
+    position:absolute;
+	top:0px;
+	left:0px;
+	width:860px;
+	height:139px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image:url('../images/texbox.png');
+}
+
+#lfinboard {
+    position:absolute;
+	top:0px;
+	left:0px;
+	width:860px;
+	height:139px;
+	z-index: 100;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image:url('../images/texbox.png');
+    transform: scaleX(-1);
+}
+
+#lfintitle {
+	position:absolute;
+	left:350px;
+	top:9px;
+	width:330px;
+	z-index: 100;
+	text-align: right;
+	letter-spacing: 1px;
+	font-size:30px;
+	color:rgb(255, 212, 0);
+		text-transform: uppercase;
+	text-shadow: 
+	    3px 3px #000,
+		3px 3px #000;
+}
+
+#p1char {
+	position:absolute;
+	left:254px;
+	top:0px;
+}
+
+#p2char {
+	position:absolute;
+	left:1616px;
+	top:0px;
+    transform: scaleX(-1);
+}

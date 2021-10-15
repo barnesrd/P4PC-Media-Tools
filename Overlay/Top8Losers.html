@@ -1,0 +1,1458 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css/stylesheet_top8losers.css" type="text/css" charset="utf-8">
+	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/countries.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			
+			var timestampOld;
+			var timestamp;
+
+			var lr1p1;
+			var lr1p2;
+			var lr1p1s;
+			var lr1p2s;
+
+			var lr2p1;
+			var lr2p2;
+			var lr2p1s;
+			var lr2p2s;
+
+			var lr3p1;
+			var lr3p2;
+			var lr3p1s;
+			var lr3p2s;
+
+			var lr4p1;
+			var lr4p2;
+			var lr4p1s;
+			var lr4p2s;
+
+			var lr5p1;
+			var lr5p2;
+			var lr5p1s;
+			var lr5p2s;
+
+			var lr6p1;
+			var lr6p2;
+			var lr6p1s;
+			var lr6p2s;
+
+			var lfin;
+			var tourn;
+			
+			var xmlDoc;
+		
+			var xhr = new XMLHttpRequest();
+		
+			var animating = false;
+			var doUpdate = false;
+			
+			function init() {
+
+				xhr.overrideMimeType('text/xml');
+				
+				var timeout = this.window.setInterval(function() {
+					pollHandler();
+				}, 100);
+			
+				$('#lr1p1').html('');
+				$('#lr1p2').html('');
+				$('#lr1p1s').html('');
+				$('#lr1p2s').html('');
+
+				$('#lr2p1').html('');
+				$('#lr2p2').html('');
+				$('#lr2p1s').html('');
+				$('#lr2p2s').html('');
+
+				$('#lr3p1').html('');
+				$('#lr3p2').html('');
+				$('#lr3p1s').html('');
+				$('#lr3p2s').html('');
+
+				$('#lr4p1').html('');
+				$('#lr4p2').html('');
+				$('#lr4p1s').html('');
+				$('#lr4p2s').html('');
+
+				$('#lr5p1').html('');
+				$('#lr5p2').html('');
+				$('#lr5p1s').html('');
+				$('#lr5p2s').html('');
+
+				$('#lr6p1').html('');
+				$('#lr6p2').html('');
+				$('#lr6p1s').html('');
+				$('#lr6p2s').html('');
+
+				$('#lfin').html('');
+
+				$('#tourn').html('');
+
+				$('#lfintitle').html("Losers Finalist");
+				$('#lfintitle').tween({
+					left:{
+						start: 1420,
+						stop: 1370,
+						time: 0,
+						duration: 0.5,
+						effect: 'easeOut'
+					},
+					opacity: {
+						start: 0,
+						stop: 100,
+						time: 0,
+						duration: 0.5,
+						effect: 'easeOut'
+					}
+				});
+
+				$('#board').tween({
+				   opacity: {
+					  start: 0,
+					  stop: 100,
+					  time: 0,
+					  duration: 0.5,
+					  effect: 'easeOut'
+					}
+				});
+				
+				
+				$.play();
+			}
+			
+			function pollHandler()
+			{
+			  loadData();
+			  if (timestamp != timestampOld) {
+				  doUpdate = true;
+			  }
+			  if (!animating && doUpdate) {
+				  updateBoard();
+			  }
+			}
+			
+			function loadData() {
+				xhr.open('GET', 'loserscontrol.xml');
+				xhr.send();
+				xhr.onreadystatechange = function(){
+						xmlDoc = xhr.responseXML;
+						
+						lr1p1 = getValueFromTag(xmlDoc,'lr1p1');
+						lr1p2 = getValueFromTag(xmlDoc,'lr1p2');
+						lr1p1s = getValueFromTag(xmlDoc,'lr1p1s');
+						lr1p2s = getValueFromTag(xmlDoc,'lr1p2s');
+
+						lr2p1 = getValueFromTag(xmlDoc,'lr2p1');
+						lr2p2 = getValueFromTag(xmlDoc,'lr2p2');
+						lr2p1s = getValueFromTag(xmlDoc,'lr2p1s');
+						lr2p2s = getValueFromTag(xmlDoc,'lr2p2s');
+
+						lr3p1 = getValueFromTag(xmlDoc,'lr3p1');
+						lr3p2 = getValueFromTag(xmlDoc,'lr3p2');
+						lr3p1s = getValueFromTag(xmlDoc,'lr3p1s');
+						lr3p2s = getValueFromTag(xmlDoc,'lr3p2s');
+
+						lr4p1 = getValueFromTag(xmlDoc,'lr4p1');
+						lr4p2 = getValueFromTag(xmlDoc,'lr4p2');
+						lr4p1s = getValueFromTag(xmlDoc,'lr4p1s');
+						lr4p2s = getValueFromTag(xmlDoc,'lr4p2s');
+
+						lr5p1 = getValueFromTag(xmlDoc,'lr5p1');
+						lr5p2 = getValueFromTag(xmlDoc,'lr5p2');
+						lr5p1s = getValueFromTag(xmlDoc,'lr5p1s');
+						lr5p2s = getValueFromTag(xmlDoc,'lr5p2s');
+
+						lr6p1 = getValueFromTag(xmlDoc,'lr6p1');
+						lr6p2 = getValueFromTag(xmlDoc,'lr6p2');
+						lr6p1s = getValueFromTag(xmlDoc,'lr6p1s');
+						lr6p2s = getValueFromTag(xmlDoc,'lr6p2s');
+
+						lfin = getValueFromTag(xmlDoc,'lfin');
+						tourn = getValueFromTag(xmlDoc,'tourn');
+						
+						timestampOld = timestamp;
+						timestamp = getValueFromTag(xmlDoc,'timestamp');
+						
+				}
+			}
+			
+			function updateBoard() {
+				// ROUND ONE
+				if ($('#lr1p1').html() != lr1p1) {
+					animating = true;
+					$('#lr1p1').tween({
+						left:{
+						  start: 40,
+						  stop: 70,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr1p1').html(lr1p1);
+						}
+					});
+					
+					$('#lr1p1').tween({
+						left:{
+						  start: 70,
+						  stop: 40,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr1p2').html() != lr1p2) {
+					animating = true;
+					$('#lr1p2').tween({
+						left:{
+						  start: 40,
+						  stop: 70,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr1p2').html(lr1p2);
+						}
+					});
+					
+					$('#lr1p2').tween({
+						left:{
+						  start: 70,
+						  stop: 40,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr1p1s').html() != lr1p1s) {
+					animating = true;
+					$('#lr1p1s').tween({
+						left:{
+						  start: 360,
+						  stop: 360,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr1p1s').html(lr1p1s);
+						}
+					});
+					
+					$('#lr1p1s').tween({
+						left:{
+						  start: 360,
+						  stop: 360,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#lr1p2s').html() != lr1p1s) {
+					animating = true;
+					$('#lr1p2s').tween({
+						left:{
+						  start: 360,
+						  stop: 360,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr1p2s').html(lr1p2s);
+						}
+					});
+					
+					$('#lr1p2s').tween({
+						left:{
+						  start: 360,
+						  stop: 360,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				// ROUND TWO
+				if ($('#lr2p1').html() != lr2p1) {
+					animating = true;
+					$('#lr2p1').tween({
+						left:{
+						  start: 40,
+						  stop: 70,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr2p1').html(lr2p1);
+						}
+					});
+					
+					$('#lr2p1').tween({
+						left:{
+						  start: 70,
+						  stop: 40,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr2p2').html() != lr2p2) {
+					animating = true;
+					$('#lr2p2').tween({
+						left:{
+						  start: 40,
+						  stop: 70,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr2p2').html(lr2p2);
+						}
+					});
+					
+					$('#lr2p2').tween({
+						left:{
+						  start: 70,
+						  stop: 40,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr2p1s').html() != lr2p1s) {
+					animating = true;
+					$('#lr2p1s').tween({
+						left:{
+						  start: 360,
+						  stop: 360,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr2p1s').html(lr2p1s);
+						}
+					});
+					
+					$('#lr2p1s').tween({
+						left:{
+						  start: 360,
+						  stop: 360,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#lr2p2s').html() != lr2p2s) {
+					animating = true;
+					$('#lr2p2s').tween({
+						left:{
+						  start: 360,
+						  stop: 360,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr2p2s').html(lr2p2s);
+						}
+					});
+					
+					$('#lr2p2s').tween({
+						left:{
+						  start: 360,
+						  stop: 360,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				// ROUND THREE
+				if ($('#lr3p1').html() != lr3p1) {
+					animating = true;
+					$('#lr3p1').tween({
+						left:{
+						  start: 420,
+						  stop: 470,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr3p1').html(lr3p1);
+						}
+					});
+					
+					$('#lr3p1').tween({
+						left:{
+						  start: 470,
+						  stop: 420,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr3p2').html() != lr3p2) {
+					animating = true;
+					$('#lr3p2').tween({
+						left:{
+						  start: 420,
+						  stop: 470,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr3p2').html(lr3p2);
+						}
+					});
+					
+					$('#lr3p2').tween({
+						left:{
+						  start: 470,
+						  stop: 420,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr3p1s').html() != lr3p1s) {
+					animating = true;
+					$('#lr3p1s').tween({
+						left:{
+						  start: 735,
+						  stop: 735,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr3p1s').html(lr3p1s);
+						}
+					});
+					
+					$('#lr3p1s').tween({
+						left:{
+						  start: 735,
+						  stop: 735,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#lr3p2s').html() != lr3p2s) {
+					animating = true;
+					$('#lr3p2s').tween({
+						left:{
+						  start: 735,
+						  stop: 735,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr3p2s').html(lr3p2s);
+						}
+					});
+					
+					$('#lr3p2s').tween({
+						left:{
+						  start: 735,
+						  stop: 735,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				// ROUND FOUR
+				if ($('#lr4p1').html() != lr4p1) {
+					animating = true;
+					$('#lr4p1').tween({
+						left:{
+						  start: 420,
+						  stop: 470,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr4p1').html(lr4p1);
+						}
+					});
+					
+					$('#lr4p1').tween({
+						left:{
+						  start: 470,
+						  stop: 420,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr4p2').html() != lr4p2) {
+					animating = true;
+					$('#lr4p2').tween({
+						left:{
+						  start: 420,
+						  stop: 470,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr4p2').html(lr4p2);
+						}
+					});
+					
+					$('#lr4p2').tween({
+						left:{
+						  start: 470,
+						  stop: 420,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr4p1s').html() != lr4p1s) {
+					animating = true;
+					$('#lr4p1s').tween({
+						left:{
+						  start: 735,
+						  stop: 735,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr4p1s').html(lr4p1s);
+						}
+					});
+					
+					$('#lr4p1s').tween({
+						left:{
+						  start: 735,
+						  stop: 735,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#lr4p2s').html() != lr4p1s) {
+					animating = true;
+					$('#lr4p2s').tween({
+						left:{
+						  start: 735,
+						  stop: 735,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr4p2s').html(lr4p2s);
+						}
+					});
+					
+					$('#lr4p2s').tween({
+						left:{
+						  start: 735,
+						  stop: 735,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				// ROUND FIVE
+				if ($('#lr5p1').html() != lr5p1) {
+					animating = true;
+					$('#lr5p1').tween({
+						left:{
+						  start: 797,
+						  stop: 850,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr5p1').html(lr5p1);
+						}
+					});
+					
+					$('#lr5p1').tween({
+						left:{
+						  start: 850,
+						  stop: 797,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr5p2').html() != lr5p2) {
+					animating = true;
+					$('#lr5p2').tween({
+						left:{
+						  start: 797,
+						  stop: 850,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr5p2').html(lr5p2);
+						}
+					});
+					
+					$('#lr5p2').tween({
+						left:{
+						  start: 850,
+						  stop: 797,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr5p1s').html() != lr5p1s) {
+					animating = true;
+					$('#lr5p1s').tween({
+						left:{
+						  start: 1110,
+						  stop: 1110,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr5p1s').html(lr5p1s);
+						}
+					});
+					
+					$('#lr5p1s').tween({
+						left:{
+						  start: 1110,
+						  stop: 1110,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#lr5p2s').html() != lr5p2s) {
+					animating = true;
+					$('#lr5p2s').tween({
+						left:{
+						  start: 1110,
+						  stop: 1110,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr5p2s').html(lr5p2s);
+						}
+					});
+					
+					$('#lr5p2s').tween({
+						left:{
+						  start: 1110,
+						  stop: 1110,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				// ROUND SIX
+				if ($('#lr6p1').html() != lr6p1) {
+					animating = true;
+					$('#lr6p1').tween({
+						left:{
+						  start: 1300,
+						  stop: 1350,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr6p1').html(lr6p1);
+						}
+					});
+					
+					$('#lr6p1').tween({
+						left:{
+						  start: 1350,
+						  stop: 1300,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr6p2').html() != lr6p2) {
+					animating = true;
+					$('#lr6p2').tween({
+						left:{
+						  start: 1300,
+						  stop: 1350,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr6p2').html(lr6p2);
+						}
+					});
+					
+					$('#lr6p2').tween({
+						left:{
+						  start: 1350,
+						  stop: 1300,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+				
+				if ($('#lr6p1s').html() != lr6p1s) {
+					animating = true;
+					$('#lr6p1s').tween({
+						left:{
+						  start: 1615,
+						  stop: 1615,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr6p1s').html(lr6p1s);
+						}
+					});
+					
+					$('#lr6p1s').tween({
+						left:{
+						  start: 1615,
+						  stop: 1615,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				if ($('#lr6p2s').html() != lr6p2s) {
+					animating = true;
+					$('#lr6p2s').tween({
+						left:{
+						  start: 1615,
+						  stop: 1615,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lr6p2s').html(lr6p2s);
+						}
+					});
+					
+					$('#lr6p2s').tween({
+						left:{
+						  start: 1615,
+						  stop: 1615,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				// FINALIST
+				if ($('#lfin').html() != lfin) {
+					animating = true;
+					$('#lfin').tween({
+						left:{
+						  start: 1280,
+						  stop: 1330,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lfin').html(lfin);
+						}
+					});
+					
+					$('#lfin').tween({
+						left:{
+						  start: 1330,
+						  stop: 1280,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+				// TOURNEY NAME
+				
+				if ($('#tourn').html() != tourn) {
+					animating = true;
+					$('#tourn').tween({
+						left:{
+						  start: 1000,
+						  stop: 900,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#tourn').html(tourn);
+						}
+					});
+					
+					$('#tourn').tween({
+						left:{
+						  start: 900,
+						  stop: 1000,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+					
+				}
+
+
+				$.play();
+				
+				doUpdate = false;
+			}
+			
+			function getValueFromTag (xmlDoc,tag) {
+				if (xmlDoc.getElementsByTagName(tag).length != 0 ) {
+					if (xmlDoc.getElementsByTagName(tag)[0].childNodes.length == 0) {
+							return '';
+						} else {
+							return xmlDoc.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
+					}
+				} else {
+					return '';
+				}
+			}
+			
+			function getCountry (country) {
+			
+			var count = iso.findCountryByName(country);
+			if (!count)
+			count = iso.findCountryByCode(country);
+			if (!count) {
+			var count = new Array();
+			count['value'] = "unknown";
+			}
+			
+			return count['value'];
+		}
+	</script>
+</head>
+<body onLoad="init()">
+	<div id="board">
+		<div id="lr1p1">P1</div>
+		<div id="lr1p2">P2</div>
+		<div id="lr1p1s">1</div>
+		<div id="lr1p2s">2</div>
+
+		<div id="lr2p1">P3</div>
+		<div id="lr2p2">P4</div>
+		<div id="lr2p1s">3</div>
+		<div id="lr2p2s">4</div>
+
+		<div id="lr3p1">P5</div>
+		<div id="lr3p2">P6</div>
+		<div id="lr3p1s">5</div>
+		<div id="lr3p2s">6</div>
+
+		<div id="lr4p1">P1</div>
+		<div id="lr4p2">P2</div>
+		<div id="lr4p1s">1</div>
+		<div id="lr4p2s">2</div>
+
+		<div id="lr5p1">P3</div>
+		<div id="lr5p2">P4</div>
+		<div id="lr5p1s">3</div>
+		<div id="lr5p2s">4</div>
+
+		<div id="lr6p1">P5</div>
+		<div id="lr6p2">P6</div>
+		<div id="lr6p1s">5</div>
+		<div id="lr6p2s">6</div>
+
+		<div id="lfin">Finalist</div>
+		<div id="lfintitle"></div>
+
+		<div id="tourn"></div>
+	</div>
+</body>
+</html>

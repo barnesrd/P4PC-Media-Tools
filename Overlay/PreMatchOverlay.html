@@ -1,0 +1,501 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css/stylesheet_gf.css" type="text/css" charset="utf-8">
+	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/countries.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			
+			var timestampOld;
+			var timestamp;
+
+			var wfin;
+			var lfin;
+
+			var oldp1char = '';
+			var oldp1charimg = new Image();
+			oldp1charimg.src = 'images/characters/' + oldp1char + '.png'
+			var p1char;
+			var p1charimg = new Image();
+
+			var oldp2char = '';
+			var oldp2charimg = new Image();
+			oldp2charimg.src = 'images/characters/' + oldp2char + '.png'
+			var p2char;
+			var p2charimg = new Image();
+
+			var oldmatch='';
+			var match;
+			
+			var xmlDoc;
+		
+			var xhr = new XMLHttpRequest();
+		
+			var animating = false;
+			var doUpdate = false;
+
+			function init() {
+
+				xhr.overrideMimeType('text/xml');
+
+				$('#wfin').html('');
+				$('#lfin').html('');
+				$('#p1char').opacity(0)
+				$('#p2char').opacity(0)
+				$('#title').html('');
+
+
+				$('#wfintitle').html("Winners Finalist");
+				$('#wfintitle').opacity(0);
+				
+				$('#lfintitle').html("Losers Finalist");
+				$('#lfintitle').opacity(0);
+
+				$('#bg').opacity(0);
+				$('#board').opacity(100);
+				
+				$('#wfinboard').tween({
+					left:{
+						start:100,
+						stop: 0,
+						time: 0, 
+						duration: 0.5,
+						effect: 'easeIn'
+					},
+					opacity: {
+						start:0,
+						stop:100,
+						time:0,
+						duation:0.5,
+						effect:'easeOut'
+					}
+				});
+				$('#lfinboard').tween({
+					left:{
+						start:960,
+						stop: 1060,
+						time: 0, 
+						duration: 0.5,
+						effect: 'easeIn'
+					},
+					opacity: {
+						start:0,
+						stop:100,
+						time:0,
+						duation:0.5,
+						effect:'easeOut'
+					}
+				});
+				$('#p4pc').tween({
+					opacity:{
+						start:0,
+						stop:100,
+						time:0,
+						duration:0.5,
+						effect:'easeOut'
+					}
+				});
+				
+				var timeout = this.window.setInterval(function() {
+					pollHandler();
+				}, 100);
+
+				$.play();
+
+				window.onerror = function(msg, url, linenumber) {
+					alert(msg+' Line Number: '+linenumber);
+					window.stop();
+					return true;
+				}
+			}
+			
+			function pollHandler()
+			{
+			  
+			  loadData();
+			  if (timestamp != timestampOld) {
+				  doUpdate = true;
+			  }
+			  if (!animating && doUpdate) {
+				  updateBoard();
+			  }
+			}
+			
+			function loadData() {
+				xhr.open('GET', 'gfcontrol.xml');
+				xhr.send();
+				xhr.onreadystatechange = function(){
+						xmlDoc = xhr.responseXML;
+						try{
+						wfin = getValueFromTag(xmlDoc,'p1n');
+						lfin = getValueFromTag(xmlDoc,'p2n');
+						
+						p1char = getValueFromTag(xmlDoc, 'p1c');
+						p2char = getValueFromTag(xmlDoc, 'p2c');
+
+						p1charimg.src = 'images/characters/' + p1char + '.png';
+						p2charimg.src = 'images/characters/' + p2char + '.png';
+
+						match = getValueFromTag(xmlDoc, 'match');
+
+						timestampOld = timestamp;
+						timestamp = getValueFromTag(xmlDoc,'timestamp');
+						}
+						catch(err){}
+						
+				}
+			}
+			
+			function updateBoard() {
+				// FINALISTS
+				if ($('#wfin').html() != wfin) {
+					animating = true;
+					$('#wfin').tween({
+						left:{
+						  start: 130,
+						  stop: 500,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#wfin').html(wfin);
+						}
+					});
+					
+					$('#wfin').tween({
+						left:{
+						  start: 500,
+						  stop: 130,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+				}
+
+				if ($('#lfin').html() != lfin) {
+					animating = true;
+					$('#lfin').tween({
+						left:{
+						  start: 1170,
+						  stop: 800,
+						  units: 'px',
+						  time: 0,
+						  duration: 0.5,
+						  effect:'easeIn'
+						},
+						opacity: {
+						  start: 100,
+						  stop: 0,
+						  time: 0,
+						  duration: 0.5,
+						  effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#lfin').html(lfin);
+						}
+					});
+					
+					$('#lfin').tween({
+						left:{
+						  start: 800,
+						  stop: 1170,
+						  units: 'px',
+						  time: 0.5,
+						  duration: 0.5,
+						  effect:'easeOut'
+						},
+						opacity: {
+						  start: 0,
+						  stop: 100,
+						  time: 0.5,
+						  duration: 0.5,
+						  effect: 'easeOut'
+						},
+						onStop: function(){
+							animating = false;
+						}
+					});
+				}
+
+				if (oldp1char != p1char || $('#p1char').opacity() == 0){
+					animating=true;
+					$('#p1char').tween({
+						left:{
+							start: 0,
+							stop: 0-oldp1charimg.width,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						opacity: {
+							start: 100,
+							stop: 0,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						onStop: function(){
+							let ratio = p1charimg.width/p1charimg.height;
+							if(p1char=="Chie Satonaka" || p1char=="Shadow Chie Satonaka") var height = 800;
+							else var height = 850;
+							$('#p1char').html('<img src="images/characters/'+ p1char +'.png" height="'+height+'" width="'+(height*ratio)+'">');
+							oldp1char = p1char;
+							oldp1charimg.src = 'images/characters/' + p1char + '.png'
+							document.getElementById('p1char').style.top = 1080-800;
+						}
+					});
+					$('#p1char').tween({
+						left:{
+							start: 0-p1charimg.width,
+							stop: 0,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						opacity: {
+							start: 0,
+							stop: 100,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						onStop: function(){
+							animating=false;
+						}
+					});
+				}
+
+				if (oldp2char != p2char || $('#p2char').opacity() == 0){
+					animating=true;
+					let oldratio = oldp2charimg.width/oldp2charimg.height;
+					let newratio = p2charimg.width/p2charimg.height;
+					if(oldp2char=="Chie Satonaka" || oldp2char=="Shadow Chie Satonaka") var oldheight = 800;
+					else var oldheight = 850;
+					if(p2char=="Chie Satonaka" || p2char=="Shadow Chie Satonaka") var height = 800;
+					else var height = 850;
+					$('#p2char').tween({
+						left:{
+							start: 1920-(oldheight*oldratio),
+							stop: 1920+(oldheight*oldratio),
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						opacity: {
+							start: 100,
+							stop: 0,
+							time: 0,
+							duration: 0.5,
+							effect: 'easeIn'
+						},
+						onStop: function(){
+							$('#p2char').html('<img src="images/characters/'+ p2char +'.png" height="'+height+'" width="'+(height*newratio)+'">');
+							oldp2char = p2char;
+							oldp2charimg.src = 'images/characters/' + p2char + '.png'
+							document.getElementById('p2char').style.top = 1080-800;
+						}
+					});
+					$('#p2char').tween({
+						left:{
+							start: 1920+(height*newratio),
+							stop: 1920-(height*newratio),
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						opacity: {
+							start: 0,
+							stop: 100,
+							time: 0.5,
+							duration: 0.5,
+							effect: 'easeOut'
+						},
+						onStop: function(){
+							animating=false;
+						}
+					});
+				}
+
+				if (oldmatch != match || $('#bg').opacity() == 0){
+					animating=true;
+					$('#bg').tween({
+						opacity:{
+							start:100,
+							stop:0,
+							time:0,
+							duration:0.3,
+							effect:'easeIn'
+						},
+						onStop: function(){
+							oldmatch = match;
+							document.getElementById("bg").style.backgroundImage='url("images/'+match+'.png")';
+						}
+					});
+					$('#title').tween({
+						opacity:{
+							start:100,
+							stop:0,
+							time:0,
+							duration:0.3,
+							effect:'easeIn'
+						},
+						onStop: function(){
+							$('#title').html(match);
+						}
+					});
+					$('#bg').tween({
+						opacity:{
+							start:0,
+							stop:100,
+							time:0.3,
+							duration:0.3,
+							effect:'easeOut'
+						},
+						onStop: function(){
+						}
+					});
+					$('#title').tween({
+						opacity:{
+							start:0,
+							stop:100,
+							time:0.3,
+							duration:0.3,
+							effect:'easeIn'
+						},
+						onStop: function(){
+							animating=false;
+						}
+					});
+					if(match == "Grand Finals"){
+						animating = true;
+						$('#wfintitle').tween({
+							left: {
+								start:460,
+								stop:260,
+								time:0,
+								duration:0.7,
+								effect:'easeOut'
+							},
+							opacity: {
+								start:0,
+								stop:100,
+								time:0,
+								duration:0.5,
+								effect:'easeIn'
+							}
+						});
+						$('#lfintitle').tween({
+							left: {
+								start:1130,
+								stop:1330,
+								time:0,
+								duration:0.7,
+								effect:'easeOut'
+							},
+							opacity: {
+								start:0,
+								stop:100,
+								time:0,
+								duration:0.5,
+								effect:'easeIn'
+							},
+							onStop: function(){
+								animating=false;
+							}
+						});
+					}
+					else if(oldmatch == "Grand Finals"){
+						animating = true;
+						$('#wfintitle').tween({
+							opacity: {
+								start:100,
+								stop:0,
+								time:0,
+								duration:0.5,
+								effect:'easeIn'
+							}
+						});
+						$('#lfintitle').tween({
+							opacity: {
+								start:100,
+								stop:0,
+								time:0,
+								duration:0.5,
+								effect:'easeIn'
+							},
+							onStop: function(){
+								animating=false;
+							}
+						});
+					}
+
+				}
+
+				$.play();
+				
+				doUpdate = false;
+			}
+			
+			function getValueFromTag (xmlDoc,tag) {
+				if (xmlDoc.getElementsByTagName(tag).length != 0 ) {
+					if (xmlDoc.getElementsByTagName(tag)[0].childNodes.length == 0) {
+							return '';
+						} else {
+							return xmlDoc.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
+					}
+				} else {
+					return '';
+				}
+			}
+			
+			function getCountry (country) {
+			
+			var count = iso.findCountryByName(country);
+			if (!count)
+			count = iso.findCountryByCode(country);
+			if (!count) {
+			var count = new Array();
+			count['value'] = "unknown";
+			}
+			
+			return count['value'];
+		}
+	</script>
+</head>
+<body onLoad="init()">
+	<div id="board">
+		<div id="bg"></div>
+		<div id="wfin">Finalist</div>
+		<div id="lfin">Finalist</div>
+		<div id="wfintitle"></div>
+		<div id="lfintitle"></div>
+		<div id="p1char"></div>
+		<div id="p2char"></div>
+		<div id='wfinboard'></div>
+		<div id='lfinboard'></div>
+		<div id='p4pc'></div>
+		<div id='title'></div>
+	</div>
+</body>
+</html>
