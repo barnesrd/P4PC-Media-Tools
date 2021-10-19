@@ -3,7 +3,6 @@
 	<link rel="stylesheet" href="css/stylesheet_gf.css" type="text/css" charset="utf-8">
 	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/countries.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 			
 			var timestampOld;
@@ -24,7 +23,7 @@
 			var p2char;
 			var p2charimg = new Image();
 
-			var oldmatch='';
+			var oldmatch='blank';
 			var match;
 			
 			var xmlDoc;
@@ -40,8 +39,8 @@
 
 				$('#wfin').html('');
 				$('#lfin').html('');
-				$('#p1char').opacity(0)
-				$('#p2char').opacity(0)
+				$('#p1char').opacity(0);
+				$('#p2char').opacity(0);
 				$('#title').html('');
 
 
@@ -147,7 +146,6 @@
 			}
 			
 			function updateBoard() {
-				// FINALISTS
 				if ($('#wfin').html() != wfin) {
 					animating = true;
 					$('#wfin').tween({
@@ -344,7 +342,7 @@
 							start:100,
 							stop:0,
 							time:0,
-							duration:0.3,
+							duration:0.4,
 							effect:'easeIn'
 						},
 						onStop: function(){
@@ -368,8 +366,8 @@
 						opacity:{
 							start:0,
 							stop:100,
-							time:0.3,
-							duration:0.3,
+							time:0.4,
+							duration:0.4,
 							effect:'easeOut'
 						},
 						onStop: function(){
@@ -449,7 +447,6 @@
 							}
 						});
 					}
-
 				}
 
 				$.play();
@@ -468,24 +465,12 @@
 					return '';
 				}
 			}
-			
-			function getCountry (country) {
-			
-			var count = iso.findCountryByName(country);
-			if (!count)
-			count = iso.findCountryByCode(country);
-			if (!count) {
-			var count = new Array();
-			count['value'] = "unknown";
-			}
-			
-			return count['value'];
-		}
 	</script>
 </head>
 <body onLoad="init()">
 	<div id="board">
 		<div id="bg"></div>
+		<div id='p4pc'></div>
 		<div id="wfin">Finalist</div>
 		<div id="lfin">Finalist</div>
 		<div id="wfintitle"></div>
@@ -494,7 +479,6 @@
 		<div id="p2char"></div>
 		<div id='wfinboard'></div>
 		<div id='lfinboard'></div>
-		<div id='p4pc'></div>
 		<div id='title'></div>
 	</div>
 </body>

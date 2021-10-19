@@ -23,7 +23,7 @@ body {
 	height:1080px;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-image:url('../images/.png');
+	background-image:url('../images/blank.png');
 }
 
 #board {
@@ -32,9 +32,6 @@ body {
 	left:0px;
 	width:1920px;
 	height:1080px;
-	/*background-repeat: no-repeat;
-	background-size: cover;
-	background-image:url('../images/BG4.png');*/
 }
 
 #title {
