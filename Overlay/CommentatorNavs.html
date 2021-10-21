@@ -3,7 +3,7 @@
 	<link rel="stylesheet" href="css/stylesheet_comms.css" type="text/css" charset="utf-8">
 	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/countries.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/anime.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 			
 			var timestampOld;
@@ -12,12 +12,12 @@
 			var c1name;
 			var c1plug;
 			var oldc1nav = "";
-			var c1nav;
+			var c1nav = '';
 
 			var c2name;
 			var c2plug;
 			var oldc2nav = "";
-			var c2nav;
+			var c2nav = '';
 			
 			var xmlDoc;
 		
@@ -41,6 +41,11 @@
 				$('#c2nav').opacity(0);
 				$('#c2navbg').opacity(0);
 				$('#c2navef').opacity(0);
+				anime({
+					targets:['#c2nav', '#c2navbg', '#c2navef'],
+					rotateY:['0deg','180deg'],
+					duration:0
+				});
 
 				$('#bg').opacity(0);
 				$('#board').opacity(100);
@@ -48,8 +53,6 @@
 				var timeout = this.window.setInterval(function() {
 					pollHandler();
 				}, 100);
-
-				$.play();
 
 				window.onerror = function(msg, url, linenumber) {
 					alert(msg+' Line Number: '+linenumber);
@@ -96,131 +99,71 @@
 
 				if ($('#c1name').html() != c1name) {
 					animating = true;
-					$('#c1name').tween({
-						left:{
-						  start: 250,
-						  stop: 450,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var c1ntimeline = anime.timeline({
+						targets:'#c1name',
+						duration: 500
+					});
+					c1ntimeline.add({
+						translateX: [0,250],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete: function(){
 							$('#c1name').html(c1name);
 						}
-					});
-					$('#c1name').tween({
-						left:{
-						  start: 450,
-						  stop: 250,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					})
+					.add({
+						translateX: [250,0],
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete: function(){
+							animating=false;
 						}
 					});
 				}
 				
 				if ($('#c2name').html() != c2name) {
 					animating = true;
-					$('#c2name').tween({
-						left:{
-						  start: 1370,
-						  stop: 1170,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var c2ntimeline = anime.timeline({
+						targets:'#c2name',
+						duration: 500
+					});
+					c2ntimeline.add({
+						translateX: [0,-250],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete: function(){
 							$('#c2name').html(c2name);
 						}
-					});
-					$('#c2name').tween({
-						left:{
-						  start: 1170,
-						  stop: 1370,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					})
+					.add({
+						translateX: [-250,0],
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete: function(){
+							animating=false;
 						}
 					});
 				}
 
 				if ($('#c1plug').html() != c1plug){
 					animating=true;
-					$('#c1plug').tween({
-						left:{
-						  start: 280,
-						  stop: 480,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var c1ptimeline = anime.timeline({
+						targets:'#c1plug',
+						duration: 500
+					});
+					c1ptimeline.add({
+						translateX: [0,200],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete: function(){
 							$('#c1plug').html(c1plug);
 						}
-					});
-					$('#c1plug').tween({
-						left:{
-						  start: 480,
-						  stop: 280,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
+					})
+					.add({
+						translateX: [200,0],
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete: function(){
 							animating=false;
 						}
 					});
@@ -228,43 +171,23 @@
 				
 				if ($('#c2plug').html() != c2plug){
 					animating=true;
-					$('#c2plug').tween({
-						left:{
-						  start: 1340,
-						  stop: 1140,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var c2ptimeline = anime.timeline({
+						targets:'#c2plug',
+						duration: 500
+					});
+					c2ptimeline.add({
+						translateX: [0,-200],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete: function(){
 							$('#c2plug').html(c2plug);
 						}
-					});
-					$('#c2plug').tween({
-						left:{
-						  start: 1140,
-						  stop: 1340,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
+					})
+					.add({
+						translateX: [-200,0],
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete: function(){
 							animating=false;
 						}
 					});
@@ -272,241 +195,94 @@
 				
 				if (oldc1nav != c1nav || $('#c1nav').opacity() == 0){
 					animating=true;
-					$('#c1nav').tween({
-						left:{
-							start: 0,
-							stop: 100,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						opacity: {
-							start: 100,
-							stop: 0,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						onStop: function(){
+					var c1navtimeline = anime.timeline({
+						targets:['#c1nav', '#c1navbg', '#c1navef'],
+						duration:500
+					});
+					c1navtimeline.add({
+						translateX:[0,100],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
 							$('#c1nav').html('<img src="images/navs/'+ c1nav +'.png">');
+							$('#c1navbg').html('<img src="images/navs/'+ c1nav +'BG.png">');
+							$('#c1navef').html('<img src="images/navs/'+ c1nav +'EF.png">');
 							oldc1nav = c1nav;
 						}
-					});
-					$('#c1navbg').tween({
-						left:{
-							start: 10,
-							stop: 70,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						opacity: {
-							start: 100,
-							stop: 0,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#c1navbg').html('<img src="images/navs/'+ c1nav +'BG.png">');
-						}
-					});
-					$('#c1navef').tween({
-						left:{
-							start: 30,
-							stop: 50,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						opacity: {
-							start: 100,
-							stop: 0,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#c1navef').html('<img src="images/navs/'+ c1nav +'EF.png">');
-						}
-					});
-					$('#c1navef').tween({
-						left:{
-							start: 150,
-							stop: 30,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						opacity: {
-							start: 0,
-							stop: 100,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						onStop: function(){
-						}
-					});
-					$('#c1navbg').tween({
-						left:{
-							start: 130,
-							stop: 10,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						opacity: {
-							start: 0,
-							stop: 100,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						onStop: function(){
-						}
-					});
-					$('#c1nav').tween({
-						left:{
-							start: 100,
-							stop: 0,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						opacity: {
-							start: 0,
-							stop: 100,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						onStop: function(){
+					})
+					.add({
+						translateX:[100,0],
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete:function(){
+							var loop1 = anime.timeline({
+								loop:true
+							})
+							.add({
+								targets:'#c1navbg',
+								scale:[1,1.1],
+								easing:'easeOutCirc',
+								duration:500,
+								direction:'alternate'
+							},0)
+							.add({
+								targets:'#c1navef',
+								opacity:[1,0],
+								scale:[1,1.5],
+								easing:'easeOutCirc',
+								duration:500
+							},0);
 							animating=false;
 						}
 					});
-					
 				}
 				
 				if (oldc2nav != c2nav || $('#c2nav').opacity() == 0){
 					animating=true;
-					$('#c2nav').tween({
-						left:{
-							start: 1664,
-							stop: 1534,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						opacity: {
-							start: 100,
-							stop: 0,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						onStop: function(){
+					var c2navtimeline = anime.timeline({
+						targets:['#c2nav', '#c2navbg', '#c2navef'],
+						duration:500
+					});
+					c2navtimeline.add({
+						translateX:[0,100],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
 							$('#c2nav').html('<img src="images/navs/'+ c2nav +'.png">');
+							$('#c2navbg').html('<img src="images/navs/'+ c2nav +'BG.png">');
+							$('#c2navef').html('<img src="images/navs/'+ c2nav +'EF.png">');
 							oldc2nav = c2nav;
 						}
-					});
-					$('#c2navbg').tween({
-						left:{
-							start: 1664,
-							stop: 1564,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						opacity: {
-							start: 100,
-							stop: 0,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#c2navbg').html('<img src="images/navs/'+ c2nav +'BG.png">');
-						}
-					});
-					$('#c2navef').tween({
-						left:{
-							start: 1644,
-							stop: 1594,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						opacity: {
-							start: 100,
-							stop: 0,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#c2navef').html('<img src="images/navs/'+ c2nav +'EF.png">');
-						}
-					});
-					$('#c2navef').tween({
-						left:{
-							start: 1454,
-							stop: 1644,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						opacity: {
-							start: 0,
-							stop: 100,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						onStop: function(){
-						}
-					});
-					$('#c2navbg').tween({
-						left:{
-							start: 1534,
-							stop: 1664,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						opacity: {
-							start: 0,
-							stop: 100,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						onStop: function(){
-						}
-					});
-					$('#c2nav').tween({
-						left:{
-							start: 1564,
-							stop: 1664,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						opacity: {
-							start: 0,
-							stop: 100,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						onStop: function(){
+					},0)
+					.add({
+						rotateY:['0deg', '180deg']
+					},500)
+					.add({
+						translateX:[100,0],
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete:function(){
+							var loop2 = anime.timeline({
+								loop:true
+							})
+							.add({
+								targets:'#c2navbg',
+								scale:[1,1.1],
+								easing:'easeOutCirc',
+								duration:500,
+								direction:'alternate'
+							},0)
+							.add({
+								targets:'#c2navef',
+								opacity:[1,0],
+								scale:[1,1.5],
+								easing:'easeOutCirc',
+								duration:500
+							},0);
 							animating=false;
 						}
-					});
-					
+					},500);				
 				}
-
-				$.play();
 				
 				doUpdate = false;
 			}
@@ -522,19 +298,6 @@
 					return '';
 				}
 			}
-			
-			function getCountry (country) {
-			
-			var count = iso.findCountryByName(country);
-			if (!count)
-			count = iso.findCountryByCode(country);
-			if (!count) {
-			var count = new Array();
-			count['value'] = "unknown";
-			}
-			
-			return count['value'];
-		}
 	</script>
 </head>
 <body onLoad="init()">

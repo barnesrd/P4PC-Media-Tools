@@ -64,7 +64,7 @@ body {
 
 #wfin {
     position:absolute;
-	left:350px;
+	left:130px;
 	top:38px;
 	width: 620px;
     overflow: visible;
@@ -79,7 +79,7 @@ body {
 
 #lfin {
     position:absolute;
-	left:350px;
+	left:1170px;
 	top:38px;
     overflow: visible;
     z-index: 1000;
@@ -95,7 +95,7 @@ body {
 
 #wfintitle {
 	position:absolute;
-	left:350px;
+	left:260px;
 	top:10px;
 	width:330px;
 	z-index: 100;
@@ -122,7 +122,7 @@ body {
 #lfinboard {
     position:absolute;
 	top:0px;
-	left:0px;
+	left:1060px;
 	width:860px;
 	height:139px;
 	z-index: 100;
@@ -134,7 +134,7 @@ body {
 
 #lfintitle {
 	position:absolute;
-	left:350px;
+	left:1330px;
 	top:9px;
 	width:330px;
 	z-index: 100;
@@ -150,7 +150,7 @@ body {
 
 #p1char {
 	position:absolute;
-	left:254px;
+	left:0px;
 	top:0px;
 }
 
@@ -158,5 +158,5 @@ body {
 	position:absolute;
 	left:1616px;
 	top:0px;
-    transform: scaleX(-1);
+	translate: scaleX(-1);
 }

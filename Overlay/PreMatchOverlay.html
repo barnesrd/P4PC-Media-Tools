@@ -3,8 +3,12 @@
 	<link rel="stylesheet" href="css/stylesheet_gf.css" type="text/css" charset="utf-8">
 	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/anime.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 			
+			// When I remove the jstween reference, the html ceases to function.
+			// Revisiting this later
+
 			var timestampOld;
 			var timestamp;
 
@@ -53,53 +57,35 @@
 				$('#bg').opacity(0);
 				$('#board').opacity(100);
 				
-				$('#wfinboard').tween({
-					left:{
-						start:100,
-						stop: 0,
-						time: 0, 
-						duration: 0.5,
-						effect: 'easeIn'
-					},
-					opacity: {
-						start:0,
-						stop:100,
-						time:0,
-						duation:0.5,
-						effect:'easeOut'
-					}
-				});
-				$('#lfinboard').tween({
-					left:{
-						start:960,
-						stop: 1060,
-						time: 0, 
-						duration: 0.5,
-						effect: 'easeIn'
-					},
-					opacity: {
-						start:0,
-						stop:100,
-						time:0,
-						duation:0.5,
-						effect:'easeOut'
-					}
-				});
-				$('#p4pc').tween({
-					opacity:{
-						start:0,
-						stop:100,
-						time:0,
-						duration:0.5,
-						effect:'easeOut'
-					}
-				});
+				var bgtimeline = anime.timeline({
+					duration:500,
+					easing:'easeOutExpo',
+					opacity: [0,1]
+				})
+
+				bgtimeline.add({
+					targets: '#wfinboard',
+					translateX: [150,0]
+				}, 0)
+				.add({
+					targets:'#lfinboard',
+					rotateY: ['0deg', '180deg'],
+					duration:0
+				},0)
+				.add({
+					targets:'#lfinboard',
+					translateX: [150,0],
+				},0)
+				.add({
+					targets:'#p4pc',
+					opacity:[0,1],
+				},0);
 				
 				var timeout = this.window.setInterval(function() {
 					pollHandler();
 				}, 100);
 
-				$.play();
+				//$.play();
 
 				window.onerror = function(msg, url, linenumber) {
 					alert(msg+' Line Number: '+linenumber);
@@ -148,112 +134,63 @@
 			function updateBoard() {
 				if ($('#wfin').html() != wfin) {
 					animating = true;
-					$('#wfin').tween({
-						left:{
-						  start: 130,
-						  stop: 500,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var wftimeline = anime.timeline({
+						targets: '#wfin',
+						duration: 500
+					})
+					wftimeline.add({
+						opacity:[1,0],
+						easing: 'easeInExpo',
+						translateX:[0,400],
+						complete: function(){
 							$('#wfin').html(wfin);
 						}
 					});
-					
-					$('#wfin').tween({
-						left:{
-						  start: 500,
-						  stop: 130,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					wftimeline.add({
+						opacity:[0,1],
+						easing: 'easeOutElastic(.3,.9)',
+						translateX:[400,0],
+						complete: function(){
+							animating=false;
 						}
 					});
 				}
 
 				if ($('#lfin').html() != lfin) {
 					animating = true;
-					$('#lfin').tween({
-						left:{
-						  start: 1170,
-						  stop: 800,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var lftimeline = anime.timeline({
+						targets: '#lfin',
+						duration: 500
+					})
+					lftimeline.add({
+						opacity:[1,0],
+						easing: 'easeInExpo',
+						translateX:[0,-400],
+						complete: function(){
 							$('#lfin').html(lfin);
 						}
 					});
-					
-					$('#lfin').tween({
-						left:{
-						  start: 800,
-						  stop: 1170,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					lftimeline.add({
+						opacity:[0,1],
+						easing: 'easeOutElastic(.3,.9)',
+						translateX:[-400,0],
+						complete: function(){
+							animating=false;
 						}
 					});
 				}
 
 				if (oldp1char != p1char || $('#p1char').opacity() == 0){
 					animating=true;
-					$('#p1char').tween({
-						left:{
-							start: 0,
-							stop: 0-oldp1charimg.width,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						opacity: {
-							start: 100,
-							stop: 0,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						onStop: function(){
+					var c1timeline = anime.timeline({
+						targets:"#p1char",
+						duration:500
+					})
+					c1timeline.add({
+						translateX:[0, 0-oldp1charimg.width],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
 							let ratio = p1charimg.width/p1charimg.height;
 							if(p1char=="Chie Satonaka" || p1char=="Shadow Chie Satonaka") var height = 800;
 							else var height = 850;
@@ -262,26 +199,15 @@
 							oldp1charimg.src = 'images/characters/' + p1char + '.png'
 							document.getElementById('p1char').style.top = 1080-800;
 						}
-					});
-					$('#p1char').tween({
-						left:{
-							start: 0-p1charimg.width,
-							stop: 0,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						opacity: {
-							start: 0,
-							stop: 100,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						onStop: function(){
+					}, 0)
+					.add({
+						translateX:[0-p1charimg.width, 0],
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete:function(){
 							animating=false;
 						}
-					});
+					}, 500);
 				}
 
 				if (oldp2char != p2char || $('#p2char').opacity() == 0){
@@ -292,164 +218,100 @@
 					else var oldheight = 850;
 					if(p2char=="Chie Satonaka" || p2char=="Shadow Chie Satonaka") var height = 800;
 					else var height = 850;
-					$('#p2char').tween({
-						left:{
-							start: 1920-(oldheight*oldratio),
-							stop: 1920+(oldheight*oldratio),
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						opacity: {
-							start: 100,
-							stop: 0,
-							time: 0,
-							duration: 0.5,
-							effect: 'easeIn'
-						},
-						onStop: function(){
+					var c2timeline = anime.timeline({
+						targets:'#p2char',
+						duration:500
+					});
+					c2timeline.add({
+						translateX:[0, 1920+(oldheight*oldratio)],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
 							$('#p2char').html('<img src="images/characters/'+ p2char +'.png" height="'+height+'" width="'+(height*newratio)+'">');
 							oldp2char = p2char;
 							oldp2charimg.src = 'images/characters/' + p2char + '.png'
 							document.getElementById('p2char').style.top = 1080-800;
+							document.getElementById('p2char').style.left = 1920-(height*newratio);
+
 						}
-					});
-					$('#p2char').tween({
-						left:{
-							start: 1920+(height*newratio),
-							stop: 1920-(height*newratio),
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						opacity: {
-							start: 0,
-							stop: 100,
-							time: 0.5,
-							duration: 0.5,
-							effect: 'easeOut'
-						},
-						onStop: function(){
+					}, 0)
+					.add({
+						rotateY: ['0deg', '180deg'],
+						translateX:[1920+(height*newratio), 0],
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete:function(){
 							animating=false;
 						}
-					});
+					},500);
 				}
 
 				if (oldmatch != match || $('#bg').opacity() == 0){
 					animating=true;
-					$('#bg').tween({
-						opacity:{
-							start:100,
-							stop:0,
-							time:0,
-							duration:0.4,
-							effect:'easeIn'
-						},
-						onStop: function(){
+					var bgtimeline = anime.timeline({
+						duration:500
+					});
+					bgtimeline.add({
+						targets:"#bg",
+						opacity:[1,0],
+						easing:"easeInExpo",
+						complete:function(){
 							oldmatch = match;
 							document.getElementById("bg").style.backgroundImage='url("images/'+match+'.png")';
 						}
-					});
-					$('#title').tween({
-						opacity:{
-							start:100,
-							stop:0,
-							time:0,
-							duration:0.3,
-							effect:'easeIn'
-						},
-						onStop: function(){
+					}, 0)
+					.add({
+						targets:"#title",
+						opacity:[1,0],
+						easing:"easeInExpo",
+						complete:function(){
 							$('#title').html(match);
 						}
-					});
-					$('#bg').tween({
-						opacity:{
-							start:0,
-							stop:100,
-							time:0.4,
-							duration:0.4,
-							effect:'easeOut'
-						},
-						onStop: function(){
-						}
-					});
-					$('#title').tween({
-						opacity:{
-							start:0,
-							stop:100,
-							time:0.3,
-							duration:0.3,
-							effect:'easeIn'
-						},
-						onStop: function(){
+					}, 0)
+					.add({
+						targets:"#bg",
+						opacity:[0,1],
+						easing:"easeOutQuad",
+					}, 500)
+					.add({
+						targets:"#title",
+						opacity:[0,1],
+						easing:"easeOutQuad",
+						complete:function(){
 							animating=false;
 						}
-					});
-					if(match == "Grand Finals"){
-						animating = true;
-						$('#wfintitle').tween({
-							left: {
-								start:460,
-								stop:260,
-								time:0,
-								duration:0.7,
-								effect:'easeOut'
-							},
-							opacity: {
-								start:0,
-								stop:100,
-								time:0,
-								duration:0.5,
-								effect:'easeIn'
-							}
-						});
-						$('#lfintitle').tween({
-							left: {
-								start:1130,
-								stop:1330,
-								time:0,
-								duration:0.7,
-								effect:'easeOut'
-							},
-							opacity: {
-								start:0,
-								stop:100,
-								time:0,
-								duration:0.5,
-								effect:'easeIn'
-							},
-							onStop: function(){
-								animating=false;
-							}
-						});
+					}, 500);
+					if (match == "Grand Finals"){
+						bgtimeline.add({
+							targets:"#wfintitle",
+							opacity:[0,1],
+							translateX:[300,0],
+							easing:"easeOutExpo"
+						}, 500)
+						.add({
+							targets:"#lfintitle",
+							opacity:[0,1],
+							translateX:[-300,0],
+							easing:"easeOutExpo"
+						}, 500);
 					}
-					else if(oldmatch == "Grand Finals"){
-						animating = true;
-						$('#wfintitle').tween({
-							opacity: {
-								start:100,
-								stop:0,
-								time:0,
-								duration:0.5,
-								effect:'easeIn'
-							}
-						});
-						$('#lfintitle').tween({
-							opacity: {
-								start:100,
-								stop:0,
-								time:0,
-								duration:0.5,
-								effect:'easeIn'
-							},
-							onStop: function(){
-								animating=false;
-							}
-						});
+					if (oldmatch == "Grand Finals"){
+						bgtimeline.add({
+							targets:"#wfintitle",
+							opacity:[1,0],
+							translateX:[0,300],
+							easing:"easeInExpo"
+						}, 0)
+						.add({
+							targets:"#lfintitle",
+							opacity:[1,0],
+							translateX:[0,-300],
+							easing:"easeInExpo"
+						}, 0);
 					}
 				}
 
-				$.play();
+				//$.play();
 				
 				doUpdate = false;
 			}

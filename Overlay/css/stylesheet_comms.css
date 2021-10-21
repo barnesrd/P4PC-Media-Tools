@@ -33,7 +33,7 @@ body {
 
 #c1name {
     position:absolute;
-	left:810px;
+	left:250px;
 	top:170px;
 	width:300px;
     overflow: visible;
@@ -51,7 +51,7 @@ body {
 
 #c1plug {
     position:absolute;
-	left:810px;
+	left:280px;
 	top:217px;
 	width:300px;
     overflow: visible;
@@ -69,11 +69,13 @@ body {
 #c1nav {
 	position:absolute;
 	top:80px;
+	left:0px;
     z-index: 3;
 	left:0px;
 }
 #c1navbg {
 	position:absolute;
+	left:10px;
 	top:165px;
     z-index: 2;
 	left:0px;
@@ -100,7 +102,7 @@ body {
 
 #c2name {
     position:absolute;
-	left:810px;
+	left:1370px;
 	top:170px;
 	width:300px;
     overflow: visible;
@@ -118,7 +120,7 @@ body {
 
 #c2plug {
     position:absolute;
-	left:810px;
+	left:1340px;
 	top:217px;
 	width:300px;
     overflow: visible;
@@ -136,19 +138,19 @@ body {
 #c2nav {
 	position:absolute;
 	top:80px;
-	left:0px;
+	left:1664px;
     z-index: 3;
 }
 #c2navbg {
 	position:absolute;
 	top:165px;
-	left:0px;
+	left:1664px;
     z-index: 2;
 }
 #c2navef {
 	position:absolute;
 	top:165px;
-	left:0px;
+	left:1664px;
     z-index: 1;
 }
 /*

@@ -27,7 +27,7 @@ body {
 #p1board {
 	position: absolute;
 	top: 4px;
-	left: 40px;
+	left: 275px;
 	width:450px;
 	height:50px;
 	transform: scaleX(-1);
@@ -37,7 +37,7 @@ body {
 #p2board {
 	position: absolute;
 	top: 5px;
-	left: 40px;
+	left: 1200px;
 	width:450px;
 	height:50px;
 	transform: scaleX(-1);
@@ -55,7 +55,7 @@ body {
 
 #pName1 {
 	position:absolute;
-	left:350px;
+	left:300px;
 	top:9px;
 	width:330px;
 	letter-spacing: 1px;
@@ -69,7 +69,7 @@ body {
 }
 #pName2 {
 	position:absolute;
-	left:1240px;
+	left:1290px;
 	top:8px;
 	width:330px;
 	font-size:40px;/*24*/

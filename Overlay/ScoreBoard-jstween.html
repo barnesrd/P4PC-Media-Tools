@@ -3,7 +3,7 @@
 	<link rel="stylesheet" href="css/stylesheet.css" type="text/css" charset="utf-8">
 	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/countries.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/anime.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 			
 			var timestampOld;
@@ -12,10 +12,6 @@
 			var pScore1;
 			var pName2;
 			var pScore2;
-			var pCountry1;
-			var pCountry2;
-			var oldCountry1 = "";
-			var oldCountry2 = "";
 			var mText3;
 			
 			var xmlDoc;
@@ -33,59 +29,42 @@
 					pollHandler();
 				}, 100);
 			
-				$('#pFlag1').opacity(0);
 				$('#pName1').html('');
 				$('#pScore1').html('');
-				$('#pFlag2').opacity(0);
 				$('#pName2').html('');
 				$('#pScore2').html('');
 				$('#mText3').html('');
-				$('#board').tween({
-				   opacity: {
-					  start: 0,
-					  stop: 100,
-					  time: 0,
-					  duration: 0.5,
-					  effect: 'easeOut'
-					}
+				var boardtimeline = anime.timeline({
+					duration:500,
+					easing:'easeOutExpo'
 				});
-				$('#p1board').tween({
-					left: {
-						start: 375,
-						stop: 275,
-						units: 'px',
-						time: 0,
-						duration: 0.5,
-						effect: 'easeIn'
-					},
-					opacity: {
-					  start: 0,
-					  stop: 100,
-					  time: 0,
-					  duration: 0.5,
-					  effect: 'easeOut'
-					}
-				});
-				$('#p2board').tween({
-					left: {
-						start: 1125,
-						stop: 1200,
-						units: 'px',
-						time: 0,
-						duration: 0.5,
-						effect: 'easeIn'
-					},
-					opacity: {
-					  start: 0,
-					  stop: 100,
-					  time: 0,
-					  duration: 0.5,
-					  effect: 'easeOut'
-					}
-				});
-				
-				
-				$.play();
+				boardtimeline.add({
+					targets:'#board',
+					opacity: [0,1],
+				},0)
+				.add({
+					targets:'#p1board',
+					rotateY: ['0deg', '180deg'],
+					duration:0
+				},0)
+				.add({
+					targets:'#p2board',
+					rotateY: ['0deg', '180deg'],
+					duration:0
+				},0)
+				.add({
+					targets:'#p1board',
+					translateX:[-100,0]
+				},0)
+				.add({
+					targets:'#p2board',
+					translateX:[100,0]
+				},0);
+				window.onerror = function(msg, url, linenumber) {
+					alert(msg+' Line Number: '+linenumber + '\nNotify Jolteo_');
+					window.stop();
+					return true;
+				}
 			}
 			
 			function pollHandler()
@@ -104,16 +83,15 @@
 				xhr.send();
 				xhr.onreadystatechange = function(){
 						xmlDoc = xhr.responseXML;
-						
+						try{
 						pName1 = getValueFromTag(xmlDoc,'pName1');
 						pName2 = getValueFromTag(xmlDoc,'pName2');
 						pScore1 = getValueFromTag(xmlDoc,'pScore1');
 						pScore2 = getValueFromTag(xmlDoc,'pScore2');
-						pCountry1 = getCountry(getValueFromTag(xmlDoc,'pCountry1'));
-						pCountry2 = getCountry(getValueFromTag(xmlDoc,'pCountry2'));
 						mText3 = getValueFromTag(xmlDoc,'mText3');
 						timestampOld = timestamp;
 						timestamp = getValueFromTag(xmlDoc,'timestamp');
+						}catch(err){}
 						
 				}
 			}
@@ -121,247 +99,117 @@
 			function updateBoard() {
 				if ($('#pName1').html() != pName1) {
 					animating = true;
-					$('#pName1').tween({
-						left:{
-						  start: 300,
-						  stop: 370,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var p1nametimeline = anime.timeline({
+						targets:'#pName1',
+						duration:500
+					});
+					p1nametimeline.add({
+						opacity:[1,0],
+						translateX:[0,100],
+						easing: 'easeInExpo',
+						complete:function(){
 							$('#pName1').html(pName1);
 						}
-					});
-					
-					$('#pName1').tween({
-						left:{
-						  start: 370,
-						  stop: 300,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					},0)
+					.add({
+						opacity:[0,1],
+						translateX:[100,0],
+						easing: 'easeOutExpo',
+						complete:function(){
+							animating=false;
 						}
-					});
-					
+					},500);
 				}
 				
 				if ($('#pName2').html() != pName2) {
 					animating = true;
-					$('#pName2').tween({
-						left:{
-						  start: 1290,
-						  stop: 1220,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var p2nametimeline = anime.timeline({
+						targets:'#pName2',
+						duration:500
+					});
+					p2nametimeline.add({
+						opacity:[1,0],
+						translateX:[0,-100],
+						easing: 'easeInExpo',
+						complete:function(){
 							$('#pName2').html(pName2);
 						}
-					});
-					
-					$('#pName2').tween({
-						left:{
-						  start: 1220,
-						  stop: 1290,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					},0)
+					.add({
+						opacity:[0,1],
+						translateX:[-100,0],
+						easing: 'easeOutExpo',
+						complete:function(){
+							animating=false;
 						}
-					});
+					},500);
 				}
 				
 				if ($('#pScore1').html() != pScore1) {
 					animating = true;
-					$('#pScore1').tween({
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var p1scoretimeline = anime.timeline({
+						targets:'#pScore1',
+						duration:500
+					});
+					p1scoretimeline.add({
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
 							$('#pScore1').html(pScore1);
 						}
-					});
-					
-					$('#pScore1').tween({
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					})
+					.add({
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete:function(){
+							animating=false;
 						}
 					});
 				}
 				
 				if ($('#pScore2').html() != pScore2) {
 					animating = true;
-					$('#pScore2').tween({
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var p2scoretimeline = anime.timeline({
+						targets:'#pScore2',
+						duration:500
+					});
+					p2scoretimeline.add({
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
 							$('#pScore2').html(pScore2);
 						}
-					});
-					
-					$('#pScore2').tween({
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					})
+					.add({
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete:function(){
+							animating=false;
 						}
 					});
 				}
 				
 				if ($('#mText3').html() != mText3) {
 					animating = true;
-					$('#mText3').tween({
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
+					var titletimeline = anime.timeline({
+						targets:'#mText3',
+						duration:500
+					});
+					titletimeline.add({
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
 							$('#mText3').html(mText3);
 						}
-					});
-					
-					$('#mText3').tween({
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
+					})
+					.add({
+						opacity:[0,1],
+						easing:'easeOutExpo',
+						complete:function(){
+							animating=false;
 						}
 					});
 				}
-				
-				if (oldCountry1 != pCountry1 || $('#pFlag1').opacity() == 0) {
-					animating = true;
-					$('#pFlag1').tween({
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#pFlag1').html('<img src="GoSquared/cropped/iso/64shiny/'+ pCountry1 +'.png" width="50" height="33">');
-							oldCountry1 = pCountry1;
-						}
-					});
-					
-					$('#pFlag1').tween({
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-				
-				}
-				
-				
-				if (oldCountry2 != pCountry2 || $('#pFlag2').opacity() == 0) {
-					animating = true;
-					$('#pFlag2').tween({
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#pFlag2').html('<img src="GoSquared/cropped/iso/64shiny/'+ pCountry2 +'.png" width="50" height="33">');
-							oldCountry2 = pCountry2;
-						}
-					});
-					
-					$('#pFlag2').tween({
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-				
-				}
-				
-				
-				$.play();
 				
 				doUpdate = false;
 			}
@@ -377,29 +225,14 @@
 					return '';
 				}
 			}
-			
-			function getCountry (country) {
-			
-			var count = iso.findCountryByName(country);
-			if (!count)
-			count = iso.findCountryByCode(country);
-			if (!count) {
-			var count = new Array();
-			count['value'] = "unknown";
-			}
-			
-			return count['value'];
-		}
 	</script>
 </head>
 <body onLoad="init()">
 	<div id="board">
 		<div id="p1board"></div>
 		<div id="p2board"></div>
-		<!--<div id="pFlag1"></div>-->
 		<div id="pName1">Player 1</div>
 		<div id="pScore1">99</div>
-		<div id="pFlag2"></div>
 		<div id="pName2">Player 2</div>
 		<div id="pScore2">99</div>
 		<div id="mText3">Test</div>
