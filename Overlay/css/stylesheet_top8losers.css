@@ -28,7 +28,7 @@ body {
 
 #lr1p1 {
 	position:absolute;
-	left:350px;
+	left:40px;
 	top:43px;
 	width:330px;
 	letter-spacing: 1px;
@@ -40,7 +40,7 @@ body {
 }
 #lr1p2 {
 	position:absolute;
-	left:350px;
+	left:40px;
 	top: 255px;
 	width:330px;
 	letter-spacing: 1px;
@@ -52,7 +52,7 @@ body {
 }
 #lr1p1s {
 	position:absolute;
-	left:665px;
+	left:360px;
 	top:43px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -67,7 +67,7 @@ body {
 }
 #lr1p2s {
 	position:absolute;
-	left:665px;
+	left:360px;
 	top:255px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -83,7 +83,7 @@ body {
 
 #lr2p1 {
 	position:absolute;
-	left:350px;
+	left:40px;
 	top:802px;
 	width:330px;
 	letter-spacing: 1px;
@@ -95,7 +95,7 @@ body {
 }
 #lr2p2 {
 	position:absolute;
-	left:350px;
+	left:40px;
 	top: 1014px;
 	width:330px;
 	letter-spacing: 1px;
@@ -107,7 +107,7 @@ body {
 }
 #lr2p1s {
 	position:absolute;
-	left:665px;
+	left:360px;
 	top:802px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -122,7 +122,7 @@ body {
 }
 #lr2p2s {
 	position:absolute;
-	left:665px;
+	left:360px;
 	top:1014px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -138,7 +138,7 @@ body {
 
 #lr3p1 {
 	position:absolute;
-	left:350px;
+	left:420px;
 	top:150px;
 	width:330px;
 	letter-spacing: 1px;
@@ -150,7 +150,7 @@ body {
 }
 #lr3p2 {
 	position:absolute;
-	left:350px;
+	left:420px;
 	top: 362px;
 	width:330px;
 	letter-spacing: 1px;
@@ -162,7 +162,7 @@ body {
 }
 #lr3p1s {
 	position:absolute;
-	left:665px;
+	left:735px;
 	top:150px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -177,7 +177,7 @@ body {
 }
 #lr3p2s {
 	position:absolute;
-	left:665px;
+	left:735px;
 	top:362px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -193,7 +193,7 @@ body {
 
 #lr4p1 {
 	position:absolute;
-	left:350px;
+	left:420px;
 	top:695px;
 	width:330px;
 	letter-spacing: 1px;
@@ -205,7 +205,7 @@ body {
 }
 #lr4p2 {
 	position:absolute;
-	left:350px;
+	left:420px;
 	top: 905px;
 	width:330px;
 	letter-spacing: 1px;
@@ -217,7 +217,7 @@ body {
 }
 #lr4p1s {
 	position:absolute;
-	left:665px;
+	left:735px;
 	top:695px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -232,7 +232,7 @@ body {
 }
 #lr4p2s {
 	position:absolute;
-	left:665px;
+	left:735px;
 	top:905px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -248,7 +248,7 @@ body {
 
 #lr5p1 {
 	position:absolute;
-	left:350px;
+	left:797px;
 	top:467px;
 	width:330px;
 	letter-spacing: 1px;
@@ -260,7 +260,7 @@ body {
 }
 #lr5p2 {
 	position:absolute;
-	left:350px;
+	left:797px;
 	top: 590px;
 	width:330px;
 	letter-spacing: 1px;
@@ -272,7 +272,7 @@ body {
 }
 #lr5p1s {
 	position:absolute;
-	left:665px;
+	left:1110px;
 	top:467px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -287,7 +287,7 @@ body {
 }
 #lr5p2s {
 	position:absolute;
-	left:665px;
+	left:1110px;
 	top:590px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -303,7 +303,7 @@ body {
 
 #lr6p1 {
 	position:absolute;
-	left:350px;
+	left:1300px;
 	top:467px;
 	width:330px;
 	letter-spacing: 1px;
@@ -315,7 +315,7 @@ body {
 }
 #lr6p2 {
 	position:absolute;
-	left:350px;
+	left:1300px;
 	top: 590px;
 	width:330px;
 	letter-spacing: 1px;
@@ -327,7 +327,7 @@ body {
 }
 #lr6p1s {
 	position:absolute;
-	left:665px;
+	left:1615px;
 	top:467px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -342,7 +342,7 @@ body {
 }
 #lr6p2s {
 	position:absolute;
-	left:665px;
+	left:1615px;
 	top:590px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -358,10 +358,11 @@ body {
 
 #lfin {
 	position:absolute;
-	left:350px;
+	left:1280px;
 	top:320px;
 	width:330px;
 	letter-spacing: 1px;
+	z-index: 100;
 	font-size:50px;
 		text-transform: uppercase;
 	text-shadow: 
@@ -385,7 +386,7 @@ body {
 
 #tourn{
 	position:absolute;
-	left:350px;
+	left:1000px;
 	top:50px;
 	width:900px;
 	letter-spacing: 1px;

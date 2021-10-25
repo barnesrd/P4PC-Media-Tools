@@ -3,7 +3,7 @@
 	<link rel="stylesheet" href="css/stylesheet_top8winners.css" type="text/css" charset="utf-8">
 	<script src="js/jquery-2.0.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jstween-1.1.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/countries.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/anime.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 			
 			var timestampOld;
@@ -26,6 +26,17 @@
 
 			var wfin;
 			var tourn;
+
+			var names = ['tourn', 
+						 'wr1p1', 'wr1p2', 'wr1p1s', 'wr1p2s', 
+						 'wr2p1', 'wr2p2', 'wr2p1s', 'wr2p2s', 
+						 'wr3p1', 'wr3p2', 'wr3p1s', 'wr3p2s', 
+						 'wfin'];
+			var tags = [tourn,
+						wr1p1, wr1p2, wr1p1s, wr1p2s, 
+						wr2p1, wr2p2, wr2p1s, wr2p2s, 
+						wr3p1, wr3p2, wr3p1s, wr3p2s, 
+						wfin];
 			
 			var xmlDoc;
 		
@@ -62,35 +73,26 @@
 				$('#tourn').html('');
 
 				$('#wfintitle').html("Winners Finalist");
-				$('#wfintitle').tween({
-					left:{
-						start: 1100,
-						stop: 1050,
-						time: 0,
-						duration: 0.5,
-						effect: 'easeOut'
-					},
-					opacity: {
-						start: 0,
-						stop: 100,
-						time: 0,
-						duration: 0.5,
-						effect: 'easeOut'
-					}
-				});
-
-				$('#board').tween({
-				   opacity: {
-					  start: 0,
-					  stop: 100,
-					  time: 0,
-					  duration: 0.5,
-					  effect: 'easeOut'
-					}
-				});
+				anime.timeline({
+					duration:500
+				})
+				.add({
+					targets:'#wfintitle',
+					translateX: [50,0],
+					opacity: [0,1],
+					easing: 'easeOutExpo'
+				},0)
+				.add({
+					targets:'#board',
+					opacity:[0,1],
+					easing: 'easeOutExpo'
+				},0);
 				
-				
-				$.play();
+				window.onerror = function(msg, url, linenumber) {
+					alert(msg+' Line Number: '+linenumber);
+					window.stop();
+					return true;
+				}
 			}
 			
 			function pollHandler()
@@ -109,684 +111,49 @@
 				xhr.send();
 				xhr.onreadystatechange = function(){
 						xmlDoc = xhr.responseXML;
-						
-						wr1p1 = getValueFromTag(xmlDoc,'wr1p1');
-						wr1p2 = getValueFromTag(xmlDoc,'wr1p2');
-						wr1p1s = getValueFromTag(xmlDoc,'wr1p1s');
-						wr1p2s = getValueFromTag(xmlDoc,'wr1p2s');
-
-						wr2p1 = getValueFromTag(xmlDoc,'wr2p1');
-						wr2p2 = getValueFromTag(xmlDoc,'wr2p2');
-						wr2p1s = getValueFromTag(xmlDoc,'wr2p1s');
-						wr2p2s = getValueFromTag(xmlDoc,'wr2p2s');
-
-						wr3p1 = getValueFromTag(xmlDoc,'wr3p1');
-						wr3p2 = getValueFromTag(xmlDoc,'wr3p2');
-						wr3p1s = getValueFromTag(xmlDoc,'wr3p1s');
-						wr3p2s = getValueFromTag(xmlDoc,'wr3p2s');
-
-						wfin = getValueFromTag(xmlDoc,'wfin');
-						tourn = getValueFromTag(xmlDoc,'tourn');
-						
+						try{
+							for(let i=0; i < tags.length; i++){
+							tags[i] = getValueFromTag(xmlDoc,names[i]); 
+						}
 						timestampOld = timestamp;
 						timestamp = getValueFromTag(xmlDoc,'timestamp');
+						} catch(err){}
 						
 				}
 			}
 			
 			function updateBoard() {
-				// ROUND ONE
-				if ($('#wr1p1').html() != wr1p1) {
-					animating = true;
-					$('#wr1p1').tween({
-						left:{
-						  start: 50,
-						  stop: 100,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr1p1').html(wr1p1);
-						}
-					});
-					
-					$('#wr1p1').tween({
-						left:{
-						  start: 100,
-						  stop: 50,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
+				for(let i = 0; i < tags.length; i++){
+					let key = tags[i];
+					let name = names[i];
+					let offset = 100
+					if(name == 'tourn'){
+						offset = offset*-1;
+					}
+					if($(`#${name}`).html() != key){
+						animating = true;
+						let timeline = anime.timeline({
+							targets: `#${name}`,
+							duration: 500
+						});
+						timeline.add({
+							translateX: [0,offset],
+							opacity: [1,0],
+							easing: 'easeInExpo',
+							complete:function(){
+								$(`#${name}`).html(key);
+							}
+						},0+(i*30))
+						.add({
+							translateX: [offset,0],
+							opacity: [0,1],
+							easing: 'easeOutExpo',
+							complete:function(){
+								animating=false;
+							}
+						},500+(i*30));
+					}
 				}
-				
-				if ($('#wr1p2').html() != wr1p2) {
-					animating = true;
-					$('#wr1p2').tween({
-						left:{
-						  start: 50,
-						  stop: 100,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr1p2').html(wr1p2);
-						}
-					});
-					
-					$('#wr1p2').tween({
-						left:{
-						  start: 100,
-						  stop: 50,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-				
-				if ($('#wr1p1s').html() != wr1p1s) {
-					animating = true;
-					$('#wr1p1s').tween({
-						left:{
-						  start: 435,
-						  stop: 435,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr1p1s').html(wr1p1s);
-						}
-					});
-					
-					$('#wr1p1s').tween({
-						left:{
-						  start: 435,
-						  stop: 435,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-
-				if ($('#wr1p2s').html() != wr1p1s) {
-					animating = true;
-					$('#wr1p2s').tween({
-						left:{
-						  start: 435,
-						  stop: 435,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr1p2s').html(wr1p2s);
-						}
-					});
-					
-					$('#wr1p2s').tween({
-						left:{
-						  start: 435,
-						  stop: 435,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-
-				// ROUND TWO
-				if ($('#wr2p1').html() != wr2p1) {
-					animating = true;
-					$('#wr2p1').tween({
-						left:{
-						  start: 50,
-						  stop: 100,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr2p1').html(wr2p1);
-						}
-					});
-					
-					$('#wr2p1').tween({
-						left:{
-						  start: 100,
-						  stop: 50,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-				
-				if ($('#wr2p2').html() != wr2p2) {
-					animating = true;
-					$('#wr2p2').tween({
-						left:{
-						  start: 50,
-						  stop: 100,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr2p2').html(wr2p2);
-						}
-					});
-					
-					$('#wr2p2').tween({
-						left:{
-						  start: 100,
-						  stop: 50,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-				
-				if ($('#wr2p1s').html() != wr2p1s) {
-					animating = true;
-					$('#wr2p1s').tween({
-						left:{
-						  start: 435,
-						  stop: 435,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr2p1s').html(wr2p1s);
-						}
-					});
-					
-					$('#wr2p1s').tween({
-						left:{
-						  start: 435,
-						  stop: 435,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-
-				if ($('#wr2p2s').html() != wr2p2s) {
-					animating = true;
-					$('#wr2p2s').tween({
-						left:{
-						  start: 435,
-						  stop: 435,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr2p2s').html(wr2p2s);
-						}
-					});
-					
-					$('#wr2p2s').tween({
-						left:{
-						  start: 435,
-						  stop: 435,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-				
-				// ROUND THREE
-				if ($('#wr3p1').html() != wr3p1) {
-					animating = true;
-					$('#wr3p1').tween({
-						left:{
-						  start: 505,
-						  stop: 610,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr3p1').html(wr3p1);
-						}
-					});
-					
-					$('#wr3p1').tween({
-						left:{
-						  start: 610,
-						  stop: 505,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-				
-				if ($('#wr3p2').html() != wr3p2) {
-					animating = true;
-					$('#wr3p2').tween({
-						left:{
-						  start: 505,
-						  stop: 610,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr3p2').html(wr3p2);
-						}
-					});
-					
-					$('#wr3p2').tween({
-						left:{
-						  start: 610,
-						  stop: 505,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-				
-				if ($('#wr3p1s').html() != wr3p1s) {
-					animating = true;
-					$('#wr3p1s').tween({
-						left:{
-						  start: 895,
-						  stop: 895,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr3p1s').html(wr3p1s);
-						}
-					});
-					
-					$('#wr3p1s').tween({
-						left:{
-						  start: 895,
-						  stop: 895,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-
-				if ($('#wr3p2s').html() != wr3p2s) {
-					animating = true;
-					$('#wr3p2s').tween({
-						left:{
-						  start: 895,
-						  stop: 895,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wr3p2s').html(wr3p2s);
-						}
-					});
-					
-					$('#wr3p2s').tween({
-						left:{
-						  start: 895,
-						  stop: 895,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-				
-				// FINALIST
-				if ($('#wfin').html() != wfin) {
-					animating = true;
-					$('#wfin').tween({
-						left:{
-						  start: 965,
-						  stop: 1065,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#wfin').html(wfin);
-						}
-					});
-					
-					$('#wfin').tween({
-						left:{
-						  start: 1065,
-						  stop: 965,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-
-				// TOURNEY NAME
-				
-				if ($('#tourn').html() != tourn) {
-					animating = true;
-					$('#tourn').tween({
-						left:{
-						  start: 1000,
-						  stop: 900,
-						  units: 'px',
-						  time: 0,
-						  duration: 0.5,
-						  effect:'easeIn'
-						},
-						opacity: {
-						  start: 100,
-						  stop: 0,
-						  time: 0,
-						  duration: 0.5,
-						  effect: 'easeIn'
-						},
-						onStop: function(){
-							$('#tourn').html(tourn);
-						}
-					});
-					
-					$('#tourn').tween({
-						left:{
-						  start: 900,
-						  stop: 1000,
-						  units: 'px',
-						  time: 0.5,
-						  duration: 0.5,
-						  effect:'easeOut'
-						},
-						opacity: {
-						  start: 0,
-						  stop: 100,
-						  time: 0.5,
-						  duration: 0.5,
-						  effect: 'easeOut'
-						},
-						onStop: function(){
-							animating = false;
-						}
-					});
-					
-				}
-
-
-				$.play();
 				
 				doUpdate = false;
 			}
@@ -802,19 +169,6 @@
 					return '';
 				}
 			}
-			
-			function getCountry (country) {
-			
-			var count = iso.findCountryByName(country);
-			if (!count)
-			count = iso.findCountryByCode(country);
-			if (!count) {
-			var count = new Array();
-			count['value'] = "unknown";
-			}
-			
-			return count['value'];
-		}
 	</script>
 </head>
 <body onLoad="init()">

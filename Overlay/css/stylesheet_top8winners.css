@@ -28,7 +28,7 @@ body {
 
 #wr1p1 {
 	position:absolute;
-	left:350px;
+	left:50px;
 	top:52px;
 	width:330px;
 	letter-spacing: 1px;
@@ -40,7 +40,7 @@ body {
 }
 #wr1p2 {
 	position:absolute;
-	left:350px;
+	left:50px;
 	top: 350px;
 	width:330px;
 	letter-spacing: 1px;
@@ -52,7 +52,7 @@ body {
 }
 #wr1p1s {
 	position:absolute;
-	left:665px;
+	left:435px;
 	top:52px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -67,7 +67,7 @@ body {
 }
 #wr1p2s {
 	position:absolute;
-	left:665px;
+	left:435px;
 	top:350px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -83,7 +83,7 @@ body {
 
 #wr2p1 {
 	position:absolute;
-	left:350px;
+	left:50px;
 	top:700px;
 	width:330px;
 	letter-spacing: 1px;
@@ -95,7 +95,7 @@ body {
 }
 #wr2p2 {
 	position:absolute;
-	left:350px;
+	left:50px;
 	top: 1000px;
 	width:330px;
 	letter-spacing: 1px;
@@ -107,7 +107,7 @@ body {
 }
 #wr2p1s {
 	position:absolute;
-	left:665px;
+	left:435px;
 	top:700px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -122,7 +122,7 @@ body {
 }
 #wr2p2s {
 	position:absolute;
-	left:665px;
+	left:435px;
 	top:1000px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -138,7 +138,7 @@ body {
 
 #wr3p1 {
 	position:absolute;
-	left:350px;
+	left:505px;
 	top:200px;
 	width:330px;
 	letter-spacing: 1px;
@@ -150,7 +150,7 @@ body {
 }
 #wr3p2 {
 	position:absolute;
-	left:350px;
+	left:505px;
 	top: 850px;
 	width:330px;
 	letter-spacing: 1px;
@@ -162,7 +162,7 @@ body {
 }
 #wr3p1s {
 	position:absolute;
-	left:665px;
+	left:895px;
 	top:200px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -177,7 +177,7 @@ body {
 }
 #wr3p2s {
 	position:absolute;
-	left:665px;
+	left:895px;
 	top:850px;
 	width:47px;
 	font-family: p4pcscore, Arial, Helvetica, sans-serif;
@@ -193,7 +193,7 @@ body {
 
 #wfin {
 	position:absolute;
-	left:350px;
+	left:965px;
 	top:527px;
 	width:330px;
 	letter-spacing: 1px;
@@ -206,7 +206,7 @@ body {
 
 #wfintitle {
 	position:absolute;
-	left:350px;
+	left:1050px;
 	top:495px;
 	width:330px;
 	letter-spacing: 1px;
@@ -220,7 +220,7 @@ body {
 
 #tourn{
 	position:absolute;
-	left:350px;
+	left:1000px;
 	top:50px;
 	width:900px;
 	letter-spacing: 1px;
