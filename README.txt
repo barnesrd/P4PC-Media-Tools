@@ -1,11 +1,26 @@
-StreamControl is a simple program I put together in Qt (as a learning experience) to write an XML file for use with XSplit and it's ability to use SWF files to display information. It's specifically tailored for use with Fighting Game tournaments (since that is what I run and stream) but nothing is stopping you from using it for other purposes. For the most part you'll only need to edit the Flash files to get it to do what you want. And if you have specific needs that the software cannot accomplish by itself you're welcome to fork the software.
+This is an edit of StreamControl by farpenoodle at https://github.com/farpenoodle/StreamControl made for the P4AUPC community.
+This edit is primarily used for streaming P4AU using OBS, and houses a twitch chat bot executable that can be configured in the .env file of the main folder
+Of the edits made, jstween animations were ported over to anime.js for more concise code, and the html layouts that were provided were reworked. Currently, StreamControl.exe is still included for scoreboard control but this will be incorporated into the "P4PC Match Screen Control.exe" file in a later iteration.
+If you would like to fork this repository and make your own edits, feel free to do so.
 
-If you have no idea how to edit the flash files it is also possible to use StreamControl with the default XSplit title plugins. Just point it at the streamcontrol.xml file in your XSplit directory and you'll be good to go.
+---
 
-Rough how-to:
+StreamControl setup instructions (Borrowed from https://github.com/farpenoodle/StreamControl):
 1. Place StreamControl.exe in it's own directory (shouldn't actually matter where)
 2. Run it. It should autodetect your XSplit installation if you installed XSplit to the default location. If not, please click configure and set it there.
 3. Load XSplit and set up the scene. Add the SWF overlays you require.
 4. Done.
 
 Report bugs at http://github.com/farpenoodle/StreamControl/issues
+
+GNU/Linux build instructions:
+
+Install QtCreator and Qt5-script.
+In the same directory as StreamControl.pro run "qmake && make".
+
+---
+
+FuukaBot setup instructions:
+1. Set values in the .env file located in the root directory using notepad.
+2. Launch FuukaBot
+
