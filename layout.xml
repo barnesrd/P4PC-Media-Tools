@@ -18,12 +18,11 @@
 	<comboItem>Beginner Casuals</comboItem>
 	<comboItem>Exhibition</comboItem>
 	<comboItem>Tournament</comboItem>
-<!--	<comboItem>Pools</comboItem>
+<!--	<comboItem>Pools</comboItem>	-->
 	<comboItem>Winners Bracket</comboItem>
 	<comboItem>Losers Bracket</comboItem>
 	<comboItem>Top 8 Winners</comboItem>
 	<comboItem>Top 8 Losers</comboItem>
--->	<comboItem>Top 8</comboItem>
 	<comboItem>Winners Final</comboItem>
 	<comboItem>Losers Semis</comboItem>
 	<comboItem>Losers Final</comboItem>
