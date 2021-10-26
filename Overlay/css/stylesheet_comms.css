@@ -7,12 +7,23 @@
 	src:url('fonts/earthsmightiestexpand.ttf') format('truetype');
 }
 
+.commtag {
+	position:absolute;
+	overflow: visible;
+	width:300px;
+    z-index: 100;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-shadow: 
+	    3px 3px #000,
+		3px 3px #000;
+}
 
 body {
 	margin:0px;
 	background-color: rgba(0, 0, 0, 0);
 	font-family:  p4pc;
-	color:#FFFFFF;/*#FFFFFF*/
+	color:#FFFFFF;
 }
 
 #bg {
@@ -32,38 +43,19 @@ body {
 }
 
 #c1name {
-    position:absolute;
 	left:250px;
 	top:170px;
-	width:300px;
-    overflow: visible;
-    z-index: 100;
     text-align: left;
-    opacity: 80;
-	letter-spacing: 1px;
     color: rgb(255, 255, 255);
 	font-size:49px;
-		text-transform: uppercase;
-	text-shadow: 
-	    3px 3px #000,
-		3px 3px #000;
 }
 
 #c1plug {
-    position:absolute;
 	left:280px;
 	top:217px;
-	width:300px;
-    overflow: visible;
-    z-index: 100;
     text-align: left;
-	letter-spacing: 1px;
     color: rgb(56, 149, 255);
 	font-size:40px;
-		text-transform: uppercase;
-	text-shadow: 
-	    3px 3px rgb(0, 0, 0),
-		3px 3px rgb(0, 0, 0);
 }
 
 #c1nav {
@@ -87,52 +79,23 @@ body {
 	left:0px;
     transform:scaleX(-1);
 }
-/*
-#c1board {
-	position:absolute;
-	top:800px;
-	left:0px;
-    width:800px;
-    height:129px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-image:url('../images/texboxcom1.png');
-}*/
 
 
 #c2name {
-    position:absolute;
 	left:1370px;
 	top:170px;
-	width:300px;
-    overflow: visible;
-    z-index: 100;
     text-align: right;
-    opacity: 80;
-	letter-spacing: 1px;
     color: rgb(255, 255, 255);
 	font-size:49px;
-		text-transform: uppercase;
-	text-shadow: 
-        3px 3px rgb(0, 0, 0),
-        3px 3px rgb(0, 0, 0);
 }
 
 #c2plug {
-    position:absolute;
 	left:1340px;
 	top:217px;
-	width:300px;
-    overflow: visible;
-    z-index: 100;
     text-align: right;
 	letter-spacing: 1px;
     color: rgb(56, 149, 255);
 	font-size:40px;
-		text-transform: uppercase;
-	text-shadow: 
-        3px 3px rgb(0, 0, 0),
-        3px 3px rgb(0, 0, 0);
 }
 
 #c2nav {
@@ -153,18 +116,6 @@ body {
 	left:1664px;
     z-index: 1;
 }
-/*
-#c2board {
-	position:absolute;
-	top:800px;
-	left:0px;
-    width:800px;
-    height:129px;
-    transform:scaleX(-1);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-image:url('../images/texboxcom2.png');
-}*/
 
 #p4pc {
     position:absolute;

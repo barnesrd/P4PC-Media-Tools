@@ -15,6 +15,28 @@ body {
 	color:#FFFFFF;/*#FFFFFF*/
 }
 
+.playertag {
+	position: absolute;
+	width: 620px;
+    overflow: visible;
+    z-index: 100;
+	letter-spacing: 1px;
+	font-size:90px;
+		text-transform: uppercase;
+	text-shadow: 
+	    2px 2px #000,
+		2px 2px #000;
+}
+
+.title {
+	position:absolute;
+	overflow: visible;
+    z-index: 100;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color:rgb(255, 212, 0);
+}
+
 #bg {
     position:absolute;
 	top:0px;
@@ -35,17 +57,11 @@ body {
 }
 
 #title {
-    position:absolute;
 	left:810px;
 	top:38px;
 	width:300px;
-    overflow: visible;
-    z-index: 100;
     text-align: center;
-	letter-spacing: 1px;
-    color: rgb(255, 212, 0);
 	font-size:55px;
-		text-transform: uppercase;
 	text-shadow: 
 	    7px 7px #000,
 		7px 7px #000;
@@ -63,46 +79,20 @@ body {
 }
 
 #wfin {
-    position:absolute;
 	left:130px;
 	top:38px;
-	width: 620px;
-    overflow: visible;
-    z-index: 100;
-	letter-spacing: 1px;
-	font-size:90px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 
 #lfin {
-    position:absolute;
 	left:1170px;
 	top:38px;
-    overflow: visible;
-    z-index: 1000;
-	width:620px;
-    text-align: right;
-	letter-spacing: 1px;
-	font-size:90px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 
 #wfintitle {
-	position:absolute;
 	left:260px;
 	top:10px;
 	width:330px;
-	z-index: 100;
-	letter-spacing: 1px;
 	font-size:30px;
-	color:rgb(255, 212, 0);
-		text-transform: uppercase;
 	text-shadow: 
 	    3px 3px #000,
 		3px 3px #000;
@@ -133,16 +123,11 @@ body {
 }
 
 #lfintitle {
-	position:absolute;
 	left:1330px;
 	top:9px;
 	width:330px;
-	z-index: 100;
 	text-align: right;
-	letter-spacing: 1px;
 	font-size:30px;
-	color:rgb(255, 212, 0);
-		text-transform: uppercase;
 	text-shadow: 
 	    3px 3px #000,
 		3px 3px #000;

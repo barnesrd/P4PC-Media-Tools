@@ -9,10 +9,36 @@
 
 
 body {
+	position: absolute;
 	margin:0px;
 	background-color: rgba(0, 0, 0, 0);
 	font-family:  p4pc;
 	color:#FFFFFF;/*#FFFFFF*/
+}
+
+.playertag {
+	position: absolute;
+	width:330px;
+	letter-spacing: 1px;
+	font-size:60px;
+		text-transform: uppercase;
+	text-shadow: 
+	    2px 2px #000,
+		2px 2px #000;
+}
+
+.playerscore {
+	position: absolute;
+	width:47px;
+	font-family: p4pcscore, Arial, Helvetica, sans-serif;
+	font-size:60px;
+	text-align:center;
+	font-weight: bold;
+	text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000; 
 }
 
 #board {
@@ -27,181 +53,60 @@ body {
 }
 
 #wr1p1 {
-	position:absolute;
 	left:50px;
 	top:52px;
-	width:330px;
-	letter-spacing: 1px;
-	font-size:60px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
+
 #wr1p2 {
-	position:absolute;
 	left:50px;
 	top: 350px;
-	width:330px;
-	letter-spacing: 1px;
-	font-size:60px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 #wr1p1s {
-	position:absolute;
 	left:435px;
 	top:52px;
-	width:47px;
-	font-family: p4pcscore, Arial, Helvetica, sans-serif;
-	font-size:60px;
-	text-align:center;
-	font-weight: bold;
-	text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000; 
 }
 #wr1p2s {
-	position:absolute;
 	left:435px;
 	top:350px;
-	width:47px;
-	font-family: p4pcscore, Arial, Helvetica, sans-serif;
-	font-size:60px;
-	text-align:center;
-	font-weight: bold;
-	text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000; 
 }
 
 #wr2p1 {
-	position:absolute;
 	left:50px;
 	top:700px;
-	width:330px;
-	letter-spacing: 1px;
-	font-size:60px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 #wr2p2 {
-	position:absolute;
 	left:50px;
 	top: 1000px;
-	width:330px;
-	letter-spacing: 1px;
-	font-size:60px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 #wr2p1s {
-	position:absolute;
 	left:435px;
 	top:700px;
-	width:47px;
-	font-family: p4pcscore, Arial, Helvetica, sans-serif;
-	font-size:60px;
-	text-align:center;
-	font-weight: bold;
-	text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000; 
 }
 #wr2p2s {
-	position:absolute;
 	left:435px;
 	top:1000px;
-	width:47px;
-	font-family: p4pcscore, Arial, Helvetica, sans-serif;
-	font-size:60px;
-	text-align:center;
-	font-weight: bold;
-	text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000; 
 }
 
 #wr3p1 {
-	position:absolute;
 	left:505px;
 	top:200px;
-	width:330px;
-	letter-spacing: 1px;
-	font-size:60px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 #wr3p2 {
-	position:absolute;
 	left:505px;
 	top: 850px;
-	width:330px;
-	letter-spacing: 1px;
-	font-size:60px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 #wr3p1s {
-	position:absolute;
 	left:895px;
 	top:200px;
-	width:47px;
-	font-family: p4pcscore, Arial, Helvetica, sans-serif;
-	font-size:60px;
-	text-align:center;
-	font-weight: bold;
-	text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000; 
 }
 #wr3p2s {
-	position:absolute;
 	left:895px;
 	top:850px;
-	width:47px;
-	font-family: p4pcscore, Arial, Helvetica, sans-serif;
-	font-size:60px;
-	text-align:center;
-	font-weight: bold;
-	text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000; 
 }
 
 #wfin {
-	position:absolute;
 	left:965px;
 	top:527px;
-	width:330px;
-	letter-spacing: 1px;
-	font-size:60px;
-		text-transform: uppercase;
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 
 #wfintitle {

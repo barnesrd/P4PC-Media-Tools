@@ -7,6 +7,30 @@
 	src:url('fonts/earthsmightiestexpand.ttf') format('truetype');
 }
 
+.playertag {
+	position: absolute;
+	width:330px;
+	letter-spacing: 1px;
+	font-size:40px;
+	text-transform: uppercase;
+	text-shadow: 
+	    2px 2px #000,
+		2px 2px #000;
+}
+
+.playerscore {
+	position:absolute;
+	width:47px;
+	font-family: p4pcscore, Arial, Helvetica, sans-serif;
+	font-size:40px;
+	text-align:center;
+	font-weight: bold;
+	text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000; 
+}
 
 body {
 	margin:0px;
@@ -54,75 +78,22 @@ body {
 }
 
 #pName1 {
-	position:absolute;
 	left:300px;
 	top:9px;
-	width:330px;
-	letter-spacing: 1px;
-	font-size:40px;
-		text-transform: uppercase;
-		/*font-weight:bolder;
-		font-style:italic;*/
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
 #pName2 {
-	position:absolute;
 	left:1290px;
 	top:8px;
-	width:330px;
-	font-size:40px;/*24*/
-	letter-spacing: 1px;
 	text-align:right;
-		text-transform: uppercase;
-		/*font-weight: bolder;
-		font-style:italic;*/
-	text-shadow: 
-	    2px 2px #000,
-		2px 2px #000;
 }
+
 #pScore1 {
-	position:absolute;
 	left:665px;
 	top:7px;
-	width:47px;
-	font-family: p4pcscore, Arial, Helvetica, sans-serif;
-	font-size:40px;
-	text-align:center;
-	font-weight: bold;
-	text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000; 
 }
 #pScore2 {
-	position:absolute;
 	left:1215px;
 	top:7px;
-	width:47px;
-	font-family: p4pcscore, Arial, Helvetica, sans-serif;
-	font-size:40px;
-	text-align:center;
-	font-weight: bold;
-	text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000; 
-}
-
-#pFlag1 {
-	position:absolute;
-	left:254px;
-	top:0px;
-}
-
-#pFlag2 {
-	position:absolute;
-	left:1616px;
-	top:0px;
 }
 
 #mText3 {
@@ -135,8 +106,6 @@ body {
 	font-family: p4pc;
 	text-align: center;
 	text-transform: uppercase;
-	/*font-weight: bold;
-	font-style: italic;*/
 	text-shadow: 
 	    2px 2px #000,
 		2px 2px #000;
