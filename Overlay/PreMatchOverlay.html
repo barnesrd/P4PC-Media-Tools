@@ -44,7 +44,9 @@
 				$('#wfin').html('');
 				$('#lfin').html('');
 				$('#p1char').opacity(0);
+				$('#p1chartitle').opacity(100);
 				$('#p2char').opacity(0);
+				$('#p2chartitle').opacity(100);
 				$('#title').html('');
 
 
@@ -203,11 +205,38 @@
 					.add({
 						translateX:[0-p1charimg.width, 0],
 						opacity:[0,1],
+						easing:'easeOutExpo'
+					}, 500)
+					.add({
+						targets:'#p1chartitle',
+						rotateZ:['0deg', '30deg'],
+						easing:'easeInExpo',
+						duration:0
+					},0)
+					.add({
+						targets:'#p1chartitle',
+						translateX:[0,-400],
+						translateY:[0, 350],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
+							let shadow = p1char.slice(0,6);
+							let name = "";
+							if(shadow=="Shadow") name=p1char.slice(7);
+							else name=p1char;
+							$('#p1chartitle').html('<img src="images/titles/' + name +' Title.png" height="150" width="338">');
+						}
+					},0)
+					.add({
+						targets:'#p1chartitle',
+						translateX:[-400,0],
+						translateY:[350,0],
+						opacity:[0,1],
 						easing:'easeOutExpo',
 						complete:function(){
-							animating=false;
+							animating=false
 						}
-					}, 500);
+					},500);
 				}
 
 				if (oldp2char != p2char || $('#p2char').opacity() == 0){
@@ -239,9 +268,30 @@
 						rotateY: ['0deg', '180deg'],
 						translateX:[1920+(height*newratio), 0],
 						opacity:[0,1],
+						easing:'easeOutExpo'
+					},500)
+					.add({
+						targets:'#p2chartitle',
+						translateX:[0,400],
+						translateY:[0,150],
+						opacity:[1,0],
+						easing:'easeInExpo',
+						complete:function(){
+							let shadow = p2char.slice(0,6);
+							let name = "";
+							if(shadow=="Shadow") name=p2char.slice(7);
+							else name=p2char;
+							$('#p2chartitle').html('<img src="images/titles/'+ name +' Title.png" height="150" width="338">');
+						}
+					},0)
+					.add({
+						targets:'#p2chartitle',
+						translateX:[400,0],
+						translateY:[150,0],
+						opacity:[0,1],
 						easing:'easeOutExpo',
 						complete:function(){
-							animating=false;
+							animating=false
 						}
 					},500);
 				}
@@ -338,7 +388,9 @@
 		<div id="wfintitle" class="title"></div>
 		<div id="lfintitle" class="title"></div>
 		<div id="p1char"></div>
+		<div id="p1chartitle"></div>
 		<div id="p2char"></div>
+		<div id="p2chartitle"></div>
 		<div id='wfinboard'></div>
 		<div id='lfinboard'></div>
 		<div id='title' class="title"></div>

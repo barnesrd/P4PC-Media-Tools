@@ -145,3 +145,17 @@ body {
 	top:0px;
 	translate: scaleX(-1);
 }
+
+#p1chartitle {
+	position:absolute;
+	left:300px;
+	top:920px;
+	z-index: 100;
+}
+
+#p2chartitle {
+	position:absolute;
+	left:1220px;
+	top:920px;
+	z-index: 100;
+}
