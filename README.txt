@@ -6,22 +6,6 @@ In the future I plan on making a more general overlay akin to the original overl
 
 ---
 
-StreamControl setup instructions (Borrowed from https://github.com/farpenoodle/StreamControl):
-1. Place StreamControl.exe in it's own directory (shouldn't actually matter where)
-2. Run it. It should autodetect your XSplit installation if you installed XSplit to the default location. If not, please click configure and set it there.
-3. Load XSplit and set up the scene. Add the SWF overlays you require.
-4. Done.
-
-Report bugs at http://github.com/farpenoodle/StreamControl/issues
-
-GNU/Linux build instructions:
-
-Install QtCreator and Qt5-script.
-In the same directory as StreamControl.pro run "qmake && make".
-
----
-
 FuukaBot setup instructions:
 1. Set values in the .env file located in the root directory using notepad.
 2. Launch FuukaBot
-
