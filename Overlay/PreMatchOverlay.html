@@ -234,6 +234,19 @@
 						opacity:[0,1],
 						easing:'easeOutExpo',
 						complete:function(){
+							anime.timeline({
+								targets:'#p1chartitle',
+								duration:2000,
+								loop:true
+							})
+							.add({
+								scale:[1,1.05],
+								easing:'easeInOutQuad'
+							})
+							.add({
+								scale:[1.05,1],
+								easing:'easeInOutQuad'
+							})
 							animating=false
 						}
 					},500);
@@ -291,6 +304,19 @@
 						opacity:[0,1],
 						easing:'easeOutExpo',
 						complete:function(){
+							anime.timeline({
+								targets:'#p2chartitle',
+								duration:2000,
+								loop:true
+							})
+							.add({
+								scale:[1,1.05],
+								easing:'easeInOutQuad'
+							})
+							.add({
+								scale:[1.05,1],
+								easing:'easeInOutQuad'
+							})
 							animating=false
 						}
 					},500);
