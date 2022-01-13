@@ -1,0 +1,128 @@
+{
+    "Aigis":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Akihiko Sanada":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Chie Satonaka":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":120
+    },
+    "Elizabeth":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Junpei Iori":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Kanji Tatsumi":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Ken Amada":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":120
+    },
+    "Labrys":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Margaret":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Marie":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Mitsuru Kirijo":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Naoto Shirogane":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Rise Kujikawa":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Sho Minazuki":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Sho":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Teddie":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":150
+    },
+    "Tohru Adachi":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    },
+    "Yosuke Hanamura":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":110
+    },
+    "Yu Narukami":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":110
+    },
+    "Yukari Takeba":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":160
+    },
+    "Yukiko Amagi":{
+        "scale": 1.4,
+        "x1":0,
+        "x2":1000,
+        "y":100
+    }
+}
